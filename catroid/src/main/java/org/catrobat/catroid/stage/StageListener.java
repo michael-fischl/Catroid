@@ -174,7 +174,7 @@ public class StageListener implements ApplicationListener {
 	private InputListener inputListener = null;
 
 	private ShapeRenderer collisionPolygonDebugRenderer;
-	private boolean drawDebugCollisionPolygons = false;
+	private boolean drawDebugCollisionPolygons = true;
 
 	private Map<Sprite, ShowBubbleActor> bubbleActorMap = new HashMap<>();
 
