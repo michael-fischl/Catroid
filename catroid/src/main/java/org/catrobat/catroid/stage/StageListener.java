@@ -247,6 +247,11 @@ public class StageListener implements ApplicationListener {
 			makeAutomaticScreenshot = project.manualScreenshotExists(SCREENSHOT_MANUAL_FILE_NAME) || scene
 					.screenshotExists(SCREENSHOT_AUTOMATIC_FILE_NAME) || scene.screenshotExists(SCREENSHOT_MANUAL_FILE_NAME);
 		}
+		if (drawDebugCollisionPolygons) {
+			collisionPolygonDebugRenderer.setProjectionMatrix(camera.combined);
+			collisionPolygonDebugRenderer.setAutoShapeType(true);
+			collisionPolygonDebugRenderer.setColor(Color.MAGENTA);
+		}
 	}
 
 	public void cloneSpriteAndAddToStage(Sprite cloneMe) {
@@ -289,11 +294,6 @@ public class StageListener implements ApplicationListener {
 	private void disposeClonedSprites() {
 		for (Scene scene : ProjectManager.getInstance().getCurrentProject().getSceneList()) {
 			scene.removeAllClones();
-		}
-		if (drawDebugCollisionPolygons) {
-			collisionPolygonDebugRenderer.setProjectionMatrix(camera.combined);
-			collisionPolygonDebugRenderer.setAutoShapeType(true);
-			collisionPolygonDebugRenderer.setColor(Color.MAGENTA);
 		}
 	}
 

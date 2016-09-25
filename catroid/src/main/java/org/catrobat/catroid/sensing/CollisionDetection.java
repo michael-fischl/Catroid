@@ -23,11 +23,15 @@
 
 package org.catrobat.catroid.sensing;
 
+import android.graphics.PointF;
+import android.util.Log;
+
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.content.Look;
 
 public final class CollisionDetection {
@@ -118,5 +122,24 @@ public final class CollisionDetection {
 			}
 		}
 		return false;
+	}
+
+	public static double collidesWithEdge(Look look) {
+		int virtualScreenWidth = ProjectManager.getInstance().getCurrentProject().getXmlHeader().virtualScreenWidth;
+		int virtualScreenHeight = ProjectManager.getInstance().getCurrentProject().getXmlHeader().virtualScreenHeight;
+
+		Rectangle screen = new Rectangle(-virtualScreenWidth/2, -virtualScreenHeight/2, virtualScreenWidth,
+				virtualScreenHeight);
+
+		for (Polygon polygon : look.getCurrentCollisionPolygon()) {
+			for (int i = 0; i < polygon.getTransformedVertices().length - 4; i += 2) {
+				Vector2 firstPoint = new Vector2(polygon.getTransformedVertices()[i],
+						polygon.getTransformedVertices()[i + 1]);
+				Vector2 secondPoint = new Vector2(polygon.getTransformedVertices()[i + 2],
+						polygon.getTransformedVertices()[i + 3]);
+				if (screen.contains(firstPoint) ^ screen.contains(secondPoint)) return 1.0d;
+			}
+		}
+		return 0d;
 	}
 }

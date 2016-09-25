@@ -300,4 +300,8 @@ public class Formula implements Serializable {
 			return String.valueOf(interpretationResult);
 		}
 	}
+
+	public FormulaElement getFormulaTree() {
+		return formulaTree;
+	}
 }

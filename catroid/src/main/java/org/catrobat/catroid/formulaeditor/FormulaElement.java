@@ -849,6 +849,10 @@ public class FormulaElement implements Serializable {
 				break;
 			case OBJECT_DISTANCE_TO:
 				returnValue = (double) sprite.look.getDistanceToTouchPositionInUserInterfaceDimensions();
+				break;
+			case COLLIDES_WITH_EDGE:
+				returnValue = CollisionDetection.collidesWithEdge(sprite.look);
+				break;
 		}
 		return returnValue;
 	}
@@ -1122,6 +1126,10 @@ public class FormulaElement implements Serializable {
 
 				case NFC_TAG_ID:
 					resources |= Brick.NFC_ADAPTER;
+					break;
+
+				case COLLIDES_WITH_EDGE:
+					resources |= Brick.COLLISION;
 					break;
 
 				default:

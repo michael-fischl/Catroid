@@ -51,6 +51,7 @@ import org.catrobat.catroid.formulaeditor.DataContainer;
 import org.catrobat.catroid.formulaeditor.Formula;
 import org.catrobat.catroid.formulaeditor.FormulaElement;
 import org.catrobat.catroid.formulaeditor.InterpretationException;
+import org.catrobat.catroid.formulaeditor.Sensors;
 import org.catrobat.catroid.formulaeditor.UserList;
 import org.catrobat.catroid.formulaeditor.UserVariable;
 import org.catrobat.catroid.io.XStreamFieldKeyOrder;
@@ -884,13 +885,35 @@ public class Sprite implements Serializable, Cloneable {
 		}
 	}
 
+	private boolean isCollidesWithEdge(Formula formula) {
+		FormulaElement element = formula.getFormulaTree();
+		if (Sensors.getSensorByValue(element.getValue()) == Sensors.COLLIDES_WITH_EDGE) {
+			Log.e("IT", "WORKED");
+			return true;
+		}
+		return false;
+	}
+
 	public boolean hasCollision() {
-		for (Script script : getScriptList()) {
+		boolean hasCollision = (this.getRequiredResources() & Brick.COLLISION) > 0;
+		Log.e("lululu", this.getRequiredResources() + " - " + Brick.COLLISION + " - " + hasCollision);
+		if (hasCollision) return true;
+		Scene scene = ProjectManager.getInstance().getCurrentScene();
+		for (Sprite sprite : scene.getSpriteList()) {
+			if (sprite.hasToCollideWith(this)) {
+				return true;
+			}
+		}
+		/*for (Script script : getScriptList()) {
 			for (Brick brick : script.brickList) {
 				if (brick instanceof FormulaBrick) {
 					FormulaBrick formulaBrick = (FormulaBrick) brick;
 					for (Formula formula : formulaBrick.getFormulas()) {
-						if (formula.containsElement(FormulaElement.ElementType.COLLISION_FORMULA)) {
+						Log.e("checking", "checking");
+						if (formula.containsElement(FormulaElement.ElementType.COLLISION_FORMULA) ||
+								(formula.containsElement(FormulaElement.ElementType.SENSOR) &&
+								isCollidesWithEdge(formula))) {
+							Log.e("returning", "true");
 							return true;
 						}
 					}
@@ -902,24 +925,12 @@ public class Sprite implements Serializable, Cloneable {
 			if (sprite.hasToCollideWith(this)) {
 				return true;
 			}
-		}
+		}*/
 		return false;
 	}
 
 	public boolean hasToCollideWith(Sprite other) {
-		for (Script script : getScriptList()) {
-			for (Brick brick : script.brickList) {
-				if (brick instanceof FormulaBrick) {
-					FormulaBrick formulaBrick = (FormulaBrick) brick;
-					for (Formula formula : formulaBrick.getFormulas()) {
-						if (formula.containsSpriteInCollision(other.getName())) {
-							return true;
-						}
-					}
-				}
-			}
-		}
-		return false;
+		return (other.getRequiredResources() & Brick.COLLISION) > 0;
 	}
 
 	public void createCollisionPolygons() {
