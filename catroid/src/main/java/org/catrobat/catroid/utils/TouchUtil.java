@@ -23,6 +23,7 @@
 package org.catrobat.catroid.utils;
 
 import android.graphics.PointF;
+import android.util.Log;
 
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.content.Sprite;
@@ -108,5 +109,13 @@ public final class TouchUtil {
 		for (Sprite sprite : spriteList) {
 			sprite.createTouchDownAction();
 		}
+	}
+
+	public static ArrayList<PointF> getCurrentTouchingPoints() {
+		ArrayList<PointF> points = new ArrayList<>();
+		for (int index : currentlyTouchingPointersToTouchIndex.values()) {
+			points.add(touches.get(index));
+		}
+		return points;
 	}
 }

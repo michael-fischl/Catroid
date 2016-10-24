@@ -853,6 +853,9 @@ public class FormulaElement implements Serializable {
 			case COLLIDES_WITH_EDGE:
 				returnValue = CollisionDetection.collidesWithEdge(sprite.look);
 				break;
+			case TOUCHED:
+				returnValue = CollisionDetection.collidesWithFinger(sprite.look);
+				break;
 		}
 		return returnValue;
 	}

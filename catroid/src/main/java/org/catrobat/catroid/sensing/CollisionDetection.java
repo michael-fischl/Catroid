@@ -24,15 +24,21 @@
 package org.catrobat.catroid.sensing;
 
 import android.graphics.PointF;
+import android.text.method.Touch;
 import android.util.Log;
 
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.content.Look;
+import org.catrobat.catroid.utils.TouchUtil;
+
+import java.util.ArrayList;
 
 public final class CollisionDetection {
 
@@ -138,6 +144,42 @@ public final class CollisionDetection {
 				Vector2 secondPoint = new Vector2(polygon.getTransformedVertices()[i + 2],
 						polygon.getTransformedVertices()[i + 3]);
 				if (screen.contains(firstPoint) ^ screen.contains(secondPoint)) return 1.0d;
+			}
+		}
+		return 0d;
+	}
+
+	public static double collidesWithFinger(Look look) {
+		ArrayList<PointF> touchingPoints = TouchUtil.getCurrentTouchingPoints();
+		Vector2 start = new Vector2();
+		Vector2 end = new Vector2();
+		Vector2 center = new Vector2();
+		float touchRadius = Constants.COLLISION_WITH_FINGER_TOUCH_RADIUS;
+
+		for (PointF point : touchingPoints) {
+			center.set(point.x, point.y);
+			for (Polygon polygon : look.getCurrentCollisionPolygon()) {
+				Rectangle boundingRectangle = polygon.getBoundingRectangle();
+				boundingRectangle.x -= touchRadius;
+				boundingRectangle.y -= touchRadius;
+				boundingRectangle.width += touchRadius*2;
+				boundingRectangle.height += touchRadius*2;
+
+				if (polygon.contains(point.x, point.y)) {
+					return 1d;
+				}
+
+				float[] vertices = polygon.getTransformedVertices();
+				int f = 0;
+				while (f < polygon.getVertices().length - 3) {
+					start.x = vertices[f++];
+					start.y = vertices[f++];
+					end.x = vertices[f++];
+					end.y = vertices[f++];
+					if (Intersector.intersectSegmentCircle(start, end, center, touchRadius*touchRadius)) {
+						return 1d;
+					}
+				}
 			}
 		}
 		return 0d;
