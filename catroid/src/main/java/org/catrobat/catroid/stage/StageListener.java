@@ -962,4 +962,8 @@ public class StageListener implements ApplicationListener {
 		}
 		collisionPolygonDebugRenderer.end();
 	}
+
+	public void newStamp(Sprite sprite) {
+		penActor.drawNewStamp(sprite, batch, sprite.look.getTransparencyInUserInterfaceDimensionUnit());
+	}
 }

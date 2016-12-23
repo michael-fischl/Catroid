@@ -49,7 +49,7 @@ public class PenActor extends Actor {
 	public void draw(Batch batch, float parentAlpha) {
 		buffer.begin();
 		for (Sprite sprite : ProjectManager.getInstance().getSceneToPlay().getSpriteList()) {
-			drawLinesAndStampsForSprite(sprite, batch, parentAlpha);
+			drawLinesAndStampsForSprite(sprite);
 		}
 		buffer.end();
 
@@ -68,7 +68,15 @@ public class PenActor extends Actor {
 		buffer = new FrameBuffer(Pixmap.Format.RGBA8888, header.virtualScreenWidth, header.virtualScreenHeight, false);
 	}
 
-	private void drawLinesAndStampsForSprite(Sprite sprite, Batch batch, float parentAlpha) {
+	public void drawNewStamp(Sprite sprite, Batch batch, float parentAlpha) {
+		buffer.begin();
+		batch.begin();
+		sprite.look.draw(batch, parentAlpha);
+		batch.end();
+		buffer.end();
+	}
+
+	private void drawLinesAndStampsForSprite(Sprite sprite) {
 		float x = sprite.look.getXInUserInterfaceDimensionUnit();
 		float y = sprite.look.getYInUserInterfaceDimensionUnit();
 		Sprite.PenConfiguration pen = sprite.penConfiguration;
@@ -86,11 +94,6 @@ public class PenActor extends Actor {
 			renderer.circle(pen.previousPoint.x, pen.previousPoint.y, pen.penSize / 2);
 			renderer.rectLine(pen.previousPoint.x, pen.previousPoint.y, x, y, pen.penSize);
 			renderer.circle(x, y, pen.penSize / 2);
-		}
-
-		if (pen.stamp) {
-			sprite.look.draw(batch, parentAlpha);
-			pen.stamp = false;
 		}
 
 		renderer.end();

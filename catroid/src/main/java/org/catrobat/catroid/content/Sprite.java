@@ -891,7 +891,6 @@ public class Sprite implements Serializable, Cloneable {
 		public float penSize = BrickValues.PEN_SIZE;
 		public Color penColor = BrickValues.PEN_COLOR;
 		public PointF previousPoint = null;
-		public boolean stamp = false;
 	}
 
 	public void setConvertToSingleSprite(boolean convertToSingleSprite) {
