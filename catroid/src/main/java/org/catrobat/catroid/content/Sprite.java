@@ -314,7 +314,7 @@ public class Sprite implements Serializable, Cloneable {
 	@Override
 	public Sprite clone() {
 		final Sprite cloneSprite = createSpriteInstance();
-
+		Log.e(TAG, "cloning");
 		cloneSprite.setName(this.getName());
 		cloneSprite.isBackpackObject = false;
 		cloneSprite.convertToSingleSprite = false;
@@ -484,7 +484,9 @@ public class Sprite implements Serializable, Cloneable {
 		DataContainer userVariables = currentScene.getDataContainer();
 		List<UserVariable> originalSpriteVariables = userVariables.getOrCreateVariableListForSprite(this);
 		List<UserVariable> clonedSpriteVariables = userVariables.getOrCreateVariableListForSprite(cloneSprite);
+		Log.e(TAG, "Before for " + originalSpriteVariables.size());
 		for (UserVariable variable : originalSpriteVariables) {
+			Log.e(TAG, "cloning " + variable.getName());
 			clonedSpriteVariables.add(new UserVariable(variable.getName(), variable.getValue()));
 		}
 	}

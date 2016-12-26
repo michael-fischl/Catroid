@@ -23,6 +23,8 @@
 package org.catrobat.catroid.formulaeditor;
 
 import android.content.Context;
+import android.nfc.Tag;
+import android.util.Log;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -102,6 +104,7 @@ public class DataContainer implements Serializable {
 		for (Map.Entry<Sprite, List<UserList>> entry : original.spriteListOfLists.entrySet()) {
 			List<UserList> newList = new ArrayList<>();
 			for (UserList userList : entry.getValue()) {
+				Log.e("TAG", "Cloning list " + userList.getName());
 				newList.add(new UserList(userList.getName()));
 			}
 
