@@ -362,6 +362,7 @@ public class Sprite implements Serializable, Cloneable {
 
 		cloneLooks(cloneSprite);
 		cloneUserBricks(cloneSprite);
+		Log.e("DEBUG", "Call cloneSpriteVariables");
 		cloneSpriteVariables(ProjectManager.getInstance().getCurrentScene(), cloneSprite);
 		cloneScripts(cloneSprite);
 		cloneSprite.resetSprite();
@@ -484,9 +485,9 @@ public class Sprite implements Serializable, Cloneable {
 		DataContainer userVariables = currentScene.getDataContainer();
 		List<UserVariable> originalSpriteVariables = userVariables.getOrCreateVariableListForSprite(this);
 		List<UserVariable> clonedSpriteVariables = userVariables.getOrCreateVariableListForSprite(cloneSprite);
-		Log.e(TAG, "Before for " + originalSpriteVariables.size());
+		Log.e("DEBUG", "Call clonign for");
 		for (UserVariable variable : originalSpriteVariables) {
-			Log.e(TAG, "cloning " + variable.getName());
+			Log.e("DEBUG", "Call in for");
 			clonedSpriteVariables.add(new UserVariable(variable.getName(), variable.getValue()));
 		}
 	}

@@ -338,7 +338,12 @@ public class DataContainer implements Serializable {
 
 	public List<UserVariable> getOrCreateVariableListForSprite(Sprite sprite) {
 		List<UserVariable> variables = spriteVariables.get(sprite);
-
+		/*
+		Log.e("adfe", "List of variables");
+		for (UserVariable v : variables) {
+			Log.e("var", v.getName());
+		}
+		*/
 		if (variables == null) {
 			variables = new ArrayList<>();
 			spriteVariables.put(sprite, variables);
