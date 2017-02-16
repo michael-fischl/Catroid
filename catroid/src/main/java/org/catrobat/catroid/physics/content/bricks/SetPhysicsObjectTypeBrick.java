@@ -38,21 +38,21 @@ import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.BrickBaseType;
 import org.catrobat.catroid.content.bricks.BrickViewProvider;
-import org.catrobat.catroid.physics.PhysicsObject;
+import org.catrobat.catroid.physics.PhysicsProperties;
 
 import java.util.List;
 
 public class SetPhysicsObjectTypeBrick extends BrickBaseType implements Cloneable {
 	private static final long serialVersionUID = 1L;
 
-	private PhysicsObject.Type type = PhysicsObject.Type.NONE;
+	private PhysicsProperties.Type type = PhysicsProperties.Type.NONE;
 
 	private transient View prototypeView;
 
 	public SetPhysicsObjectTypeBrick() {
 	}
 
-	public SetPhysicsObjectTypeBrick(PhysicsObject.Type type) {
+	public SetPhysicsObjectTypeBrick(PhysicsProperties.Type type) {
 		this.type = type;
 	}
 
@@ -85,8 +85,8 @@ public class SetPhysicsObjectTypeBrick extends BrickBaseType implements Cloneabl
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				if (position < PhysicsObject.Type.values().length) {
-					type = PhysicsObject.Type.values()[position];
+				if (position < PhysicsProperties.Type.values().length) {
+					type = PhysicsProperties.Type.values()[position];
 				}
 			}
 
@@ -115,7 +115,7 @@ public class SetPhysicsObjectTypeBrick extends BrickBaseType implements Cloneabl
 		Spinner pointToSpinner = (Spinner) prototypeView.findViewById(R.id.brick_set_physics_object_type_spinner);
 		SpinnerAdapter objectTypeSpinnerAdapter = createAdapter(context);
 		pointToSpinner.setAdapter(objectTypeSpinnerAdapter);
-		pointToSpinner.setSelection(PhysicsObject.Type.DYNAMIC.ordinal());
+		pointToSpinner.setSelection(PhysicsProperties.Type.DYNAMIC.ordinal());
 		return prototypeView;
 	}
 

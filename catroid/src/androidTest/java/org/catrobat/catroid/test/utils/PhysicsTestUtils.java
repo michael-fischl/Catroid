@@ -30,7 +30,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 
 import org.catrobat.catroid.common.LookData;
 import org.catrobat.catroid.content.SingleSprite;
-import org.catrobat.catroid.physics.PhysicsObject;
+import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.physics.PhysicsWorld;
 import org.catrobat.catroid.utils.Utils;
 
@@ -42,7 +42,7 @@ public final class PhysicsTestUtils {
 		throw new AssertionError();
 	}
 
-	public static PhysicsObject createPhysicsObject(PhysicsWorld physicsWorld, PhysicsObject.Type type, float width,
+	public static PhysicsProperties createPhysicsObject(PhysicsWorld physicsWorld, PhysicsProperties.Type type, float width,
 			float height) {
 		return createPhysicsObject(physicsWorld, type, createRectanglePolygonShape(width, height));
 	}
@@ -53,45 +53,45 @@ public final class PhysicsTestUtils {
 		return rectangle;
 	}
 
-	public static PhysicsObject createPhysicsObject(PhysicsWorld physicsWorld, PhysicsObject.Type type, Shape shape) {
-		PhysicsObject physicsObject = physicsWorld.getPhysicsObject(new SingleSprite("TestSprite"));
+	public static PhysicsProperties createPhysicsObject(PhysicsWorld physicsWorld, PhysicsProperties.Type type, Shape shape) {
+		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(new SingleSprite("TestSprite"));
 
 		if (type != null) {
-			physicsObject.setType(type);
+			physicsProperties.setType(type);
 		}
 
 		if (shape != null) {
-			physicsObject.setShape(new Shape[] { shape });
+			physicsProperties.setShape(new Shape[] { shape });
 		}
-		return physicsObject;
+		return physicsProperties;
 	}
 
-	public static PhysicsObject createPhysicsObject(PhysicsWorld physicsWorld, PhysicsObject.Type type) {
+	public static PhysicsProperties createPhysicsObject(PhysicsWorld physicsWorld, PhysicsProperties.Type type) {
 		return createPhysicsObject(physicsWorld, type, null);
 	}
 
-	public static PhysicsObject createPhysicsObject(PhysicsWorld physicsWorld) {
+	public static PhysicsProperties createPhysicsObject(PhysicsWorld physicsWorld) {
 		return createPhysicsObject(physicsWorld, null, null);
 	}
 
-	public static Body getBody(PhysicsObject physicsObject) {
-		return (Body) Reflection.getPrivateField(physicsObject, "body");
+	public static Body getBody(PhysicsProperties physicsProperties) {
+		return (Body) Reflection.getPrivateField(physicsProperties, "body");
 	}
 
-	public static PhysicsObject.Type getType(PhysicsObject physicsObject) {
-		return (PhysicsObject.Type) Reflection.getPrivateField(physicsObject, "type");
+	public static PhysicsProperties.Type getType(PhysicsProperties physicsProperties) {
+		return (PhysicsProperties.Type) Reflection.getPrivateField(physicsProperties, "type");
 	}
 
-	public static float getMass(PhysicsObject physicsObject) {
-		return (Float) Reflection.getPrivateField(physicsObject, "mass");
+	public static float getMass(PhysicsProperties physicsProperties) {
+		return (Float) Reflection.getPrivateField(physicsProperties, "mass");
 	}
 
-	public static Shape[] getShapes(PhysicsObject physicsObject) {
-		return (Shape[]) Reflection.getPrivateField(physicsObject, "shapes");
+	public static Shape[] getShapes(PhysicsProperties physicsProperties) {
+		return (Shape[]) Reflection.getPrivateField(physicsProperties, "shapes");
 	}
 
-	public static FixtureDef getFixtureDef(PhysicsObject physicsObject) {
-		return (FixtureDef) Reflection.getPrivateField(physicsObject, "fixtureDef");
+	public static FixtureDef getFixtureDef(PhysicsProperties physicsProperties) {
+		return (FixtureDef) Reflection.getPrivateField(physicsProperties, "fixtureDef");
 	}
 
 	public static String getInternalImageFilenameFromFilename(String filename) {

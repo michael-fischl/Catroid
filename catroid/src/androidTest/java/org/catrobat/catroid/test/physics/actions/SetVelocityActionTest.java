@@ -26,7 +26,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
 import org.catrobat.catroid.formulaeditor.Formula;
-import org.catrobat.catroid.physics.PhysicsObject;
+import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.test.physics.PhysicsBaseTest;
 
 public class SetVelocityActionTest extends PhysicsBaseTest {
@@ -57,10 +57,10 @@ public class SetVelocityActionTest extends PhysicsBaseTest {
 	}
 
 	private void initVelocityValue(float velocityX, float velocityY) {
-		PhysicsObject physicsObject = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
 		Action action = sprite.getActionFactory().createSetVelocityAction(sprite, new Formula(velocityX),
 				new Formula(velocityY));
-		Vector2 velocityVector = physicsObject.getVelocity();
+		Vector2 velocityVector = physicsProperties.getVelocity();
 
 		assertEquals("Unexpected velocityX value", 0.0f, velocityVector.x);
 		assertEquals("Unexpected velocityY value", 0.0f, velocityVector.y);
@@ -69,36 +69,36 @@ public class SetVelocityActionTest extends PhysicsBaseTest {
 	}
 
 	public void testBrickWithStringFormula() {
-		PhysicsObject physicsObject = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
 		sprite.getActionFactory().createSetVelocityAction(sprite, new Formula(String.valueOf(VELOCITY_X)),
 				new Formula(String.valueOf(VELOCITY_Y))).act(1.0f);
-		Vector2 velocityVector = physicsObject.getVelocity();
+		Vector2 velocityVector = physicsProperties.getVelocity();
 
 		assertEquals("Unexpected velocityX value", VELOCITY_X, velocityVector.x);
 		assertEquals("Unexpected velocityY value", VELOCITY_Y, velocityVector.y);
 
 		sprite.getActionFactory().createSetVelocityAction(sprite, new Formula(String.valueOf("not a numerical string")),
 				new Formula(String.valueOf("not a numerical string"))).act(1.0f);
-		velocityVector = physicsObject.getVelocity();
+		velocityVector = physicsProperties.getVelocity();
 
 		assertEquals("Unexpected velocityX value", VELOCITY_X, velocityVector.x);
 		assertEquals("Unexpected velocityY value", VELOCITY_Y, velocityVector.y);
 	}
 
 	public void testNullFormula() {
-		PhysicsObject physicsObject = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
 		sprite.getActionFactory().createSetVelocityAction(sprite, null, null).act(1.0f);
-		Vector2 velocityVector = physicsObject.getVelocity();
+		Vector2 velocityVector = physicsProperties.getVelocity();
 
 		assertEquals("Unexpected velocityX value", 0f, velocityVector.x);
 		assertEquals("Unexpected velocityY value", 0f, velocityVector.y);
 	}
 
 	public void testNotANumberFormula() {
-		PhysicsObject physicsObject = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
 		sprite.getActionFactory().createSetVelocityAction(sprite, new Formula(Double.NaN), new Formula(Double.NaN))
 				.act(1.0f);
-		Vector2 velocityVector = physicsObject.getVelocity();
+		Vector2 velocityVector = physicsProperties.getVelocity();
 
 		assertEquals("Unexpected velocityX value", 0f, velocityVector.x);
 		assertEquals("Unexpected velocityY value", 0f, velocityVector.y);

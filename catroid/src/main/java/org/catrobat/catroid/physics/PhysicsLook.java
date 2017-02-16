@@ -36,12 +36,12 @@ public class PhysicsLook extends Look {
 
 	public static final float SCALE_FACTOR_ACCURACY = 10000.0f;
 
-	private final PhysicsObject physicsObject;
+	private final PhysicsProperties physicsProperties;
 	private final PhysicsObjectStateHandler physicsObjectStateHandler = new PhysicsObjectStateHandler();
 
 	public PhysicsLook(Sprite sprite, PhysicsWorld physicsWorld) {
 		super(sprite);
-		physicsObject = physicsWorld.getPhysicsObject(sprite);
+		physicsProperties = sprite.getPhysicsProperties();
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class PhysicsLook extends Look {
 	public void setLookData(LookData lookData) {
 		super.setLookData(lookData);
 		PhysicsWorld physicsWorld = ProjectManager.getInstance().getSceneToPlay().getPhysicsWorld();
-		physicsWorld.changeLook(physicsObject, this);
+		physicsWorld.changeLook(physicsProperties, this);
 		updatePhysicsObjectState(true);
 	}
 
@@ -66,63 +66,63 @@ public class PhysicsLook extends Look {
 	@Override
 	public void setPosition(float x, float y) {
 		super.setPosition(x, y);
-		if (null != physicsObject) {
-			physicsObject.setX(x + getWidth() / 2.0f);
-			physicsObject.setY(y + getHeight() / 2.0f);
+		if (null != physicsProperties) {
+			physicsProperties.setX(x + getWidth() / 2.0f);
+			physicsProperties.setY(y + getHeight() / 2.0f);
 		}
 	}
 
 	@Override
 	public void setX(float x) {
 		super.setX(x);
-		if (null != physicsObject) {
-			physicsObject.setX(x + getWidth() / 2.0f);
+		if (null != physicsProperties) {
+			physicsProperties.setX(x + getWidth() / 2.0f);
 		}
 	}
 
 	@Override
 	public void setY(float y) {
 		super.setY(y);
-		if (null != physicsObject) {
-			physicsObject.setY(y + getHeight() / 2.0f);
+		if (null != physicsProperties) {
+			physicsProperties.setY(y + getHeight() / 2.0f);
 		}
 	}
 
 	@Override
 	public float getAngularVelocityInUserInterfaceDimensionUnit() {
-		return physicsObject.getRotationSpeed();
+		return physicsProperties.getRotationSpeed();
 	}
 
 	@Override
 	public float getXVelocityInUserInterfaceDimensionUnit() {
-		return physicsObject.getVelocity().x;
+		return physicsProperties.getVelocity().x;
 	}
 
 	@Override
 	public float getYVelocityInUserInterfaceDimensionUnit() {
-		return physicsObject.getVelocity().y;
+		return physicsProperties.getVelocity().y;
 	}
 
 	@Override
 	public float getX() {
-		float x = physicsObject.getX() - getWidth() / 2.0f;
+		float x = physicsProperties.getX() - getWidth() / 2.0f;
 		super.setX(x);
 		return x;
 	}
 
 	@Override
 	public float getY() {
-		float y = physicsObject.getY() - getHeight() / 2.0f;
+		float y = physicsProperties.getY() - getHeight() / 2.0f;
 		super.setY(y);
 		return y;
 	}
 
 	@Override
 	public float getRotation() {
-		super.setRotation((physicsObject.getDirection() % 360));
+		super.setRotation((physicsProperties.getDirection() % 360));
 
 		float rotation = super.getRotation();
-		float realRotation = physicsObject.getDirection() % 360;
+		float realRotation = physicsProperties.getDirection() % 360;
 		if (realRotation < 0) {
 			realRotation += 360;
 		}
@@ -150,8 +150,8 @@ public class PhysicsLook extends Look {
 	@Override
 	public void setRotation(float degrees) {
 		super.setRotation(degrees);
-		if (null != physicsObject) {
-			physicsObject.setDirection(super.getRotation() % 360);
+		if (null != physicsProperties) {
+			physicsProperties.setDirection(super.getRotation() % 360);
 		}
 	}
 
@@ -171,9 +171,9 @@ public class PhysicsLook extends Look {
 
 		super.setScale(scaleX, scaleY);
 
-		if (physicsObject != null) {
+		if (physicsProperties != null) {
 			PhysicsWorld physicsWorld = ProjectManager.getInstance().getSceneToPlay().getPhysicsWorld();
-			physicsWorld.changeLook(physicsObject, this);
+			physicsWorld.changeLook(physicsProperties, this);
 			updatePhysicsObjectState(true);
 		}
 	}
@@ -243,13 +243,13 @@ public class PhysicsLook extends Look {
 				}
 
 				private boolean isXOutsideActiveArea() {
-					return Math.abs(PhysicsWorldConverter.convertBox2dToNormalCoordinate(physicsObject.getMassCenter().x))
-							- physicsObject.getCircumference() > PhysicsWorld.activeArea.x / 2.0f;
+					return Math.abs(PhysicsWorldConverter.convertBox2dToNormalCoordinate(physicsProperties.getMassCenter().x))
+							- physicsProperties.getCircumference() > PhysicsWorld.activeArea.x / 2.0f;
 				}
 
 				private boolean isYOutsideActiveArea() {
-					return Math.abs(PhysicsWorldConverter.convertBox2dToNormalCoordinate(physicsObject.getMassCenter().y))
-							- physicsObject.getCircumference() > PhysicsWorld.activeArea.y / 2.0f;
+					return Math.abs(PhysicsWorldConverter.convertBox2dToNormalCoordinate(physicsProperties.getMassCenter().y))
+							- physicsProperties.getCircumference() > PhysicsWorld.activeArea.y / 2.0f;
 				}
 			};
 
@@ -297,9 +297,9 @@ public class PhysicsLook extends Look {
 			boolean deactivateHangup = hangedUp && !shouldBeHangedUp;
 			boolean activateHangup = !hangedUp && shouldBeHangedUp;
 			if (deactivateHangup) {
-				physicsObject.deactivateHangup(record);
+				physicsProperties.deactivateHangup(record);
 			} else if (activateHangup) {
-				physicsObject.activateHangup();
+				physicsProperties.activateHangup();
 			}
 			hangedUp = shouldBeHangedUp;
 			return hangedUp;
@@ -316,9 +316,9 @@ public class PhysicsLook extends Look {
 			boolean deactivateNonColliding = nonColliding && !shouldBeNonColliding;
 			boolean activateNonColliding = !nonColliding && shouldBeNonColliding;
 			if (deactivateNonColliding) {
-				physicsObject.deactivateNonColliding(record, false);
+				physicsProperties.deactivateNonColliding(record, false);
 			} else if (activateNonColliding) {
-				physicsObject.activateNonColliding(false);
+				physicsProperties.activateNonColliding(false);
 			}
 			nonColliding = shouldBeNonColliding;
 			return nonColliding;
@@ -335,9 +335,9 @@ public class PhysicsLook extends Look {
 			boolean deactivateFix = fixed && !shouldBeFixed;
 			boolean activateFix = !fixed && shouldBeFixed;
 			if (deactivateFix) {
-				physicsObject.deactivateFixed(record);
+				physicsProperties.deactivateFixed(record);
 			} else if (activateFix) {
-				physicsObject.activateFixed();
+				physicsProperties.activateFixed();
 			}
 			fixed = shouldBeFixed;
 			return fixed;

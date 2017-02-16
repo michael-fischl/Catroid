@@ -25,7 +25,7 @@ package org.catrobat.catroid.test.physics.actions;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
 import org.catrobat.catroid.formulaeditor.Formula;
-import org.catrobat.catroid.physics.PhysicsObject;
+import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.test.physics.PhysicsBaseTest;
 
 public class SetFrictionActionTest extends PhysicsBaseTest {
@@ -41,48 +41,48 @@ public class SetFrictionActionTest extends PhysicsBaseTest {
 	public void testNegativeValue() {
 		float friction = -1f;
 		initFrictionValue(friction);
-		assertEquals("Unexpected friction value", PhysicsObject.MIN_FRICTION, physicsWorld.getPhysicsObject(sprite)
+		assertEquals("Unexpected friction value", PhysicsProperties.MIN_FRICTION, physicsWorld.getPhysicsObject(sprite)
 				.getFriction());
 	}
 
 	public void testHighValue() {
 		float friction = 101f;
 		initFrictionValue(friction);
-		assertEquals("Unexpected friction value", PhysicsObject.MAX_FRICTION, physicsWorld.getPhysicsObject(sprite)
+		assertEquals("Unexpected friction value", PhysicsProperties.MAX_FRICTION, physicsWorld.getPhysicsObject(sprite)
 				.getFriction());
 	}
 
 	private void initFrictionValue(float frictionFactor) {
-		PhysicsObject physicsObject = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
 		Action action = sprite.getActionFactory().createSetFrictionAction(sprite, new Formula(frictionFactor));
 
-		assertEquals("Unexpected friction value", PhysicsObject.DEFAULT_FRICTION, physicsObject.getFriction());
+		assertEquals("Unexpected friction value", PhysicsProperties.DEFAULT_FRICTION, physicsProperties.getFriction());
 
 		action.act(1.0f);
 		physicsWorld.step(1.0f);
 	}
 
 	public void testBrickWithStringFormula() {
-		PhysicsObject physicsObject = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
 		sprite.getActionFactory().createSetFrictionAction(sprite, new Formula(String.valueOf(FRICTION))).act(1.0f);
 		assertEquals("Unexpected friction value", FRICTION / 100.f,
-				physicsObject.getFriction());
+				physicsProperties.getFriction());
 
 		sprite.getActionFactory().createSetFrictionAction(sprite, new Formula(String.valueOf("not a numerical string")))
 				.act(1.0f);
 		assertEquals("Unexpected friction value", FRICTION / 100.f,
-				physicsObject.getFriction());
+				physicsProperties.getFriction());
 	}
 
 	public void testNullFormula() {
-		PhysicsObject physicsObject = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
 		sprite.getActionFactory().createSetFrictionAction(sprite, null).act(1.0f);
-		assertEquals("Unexpected friction value", 0f, physicsObject.getFriction());
+		assertEquals("Unexpected friction value", 0f, physicsProperties.getFriction());
 	}
 
 	public void testNotANumberFormula() {
-		PhysicsObject physicsObject = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
 		sprite.getActionFactory().createSetFrictionAction(sprite, new Formula(Double.NaN)).act(1.0f);
-		assertEquals("Unexpected friction value", PhysicsObject.DEFAULT_FRICTION, physicsObject.getFriction());
+		assertEquals("Unexpected friction value", PhysicsProperties.DEFAULT_FRICTION, physicsProperties.getFriction());
 	}
 }

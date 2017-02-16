@@ -40,7 +40,7 @@ import org.catrobat.catroid.content.SingleSprite;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.io.StorageHandler;
 import org.catrobat.catroid.physics.PhysicsLook;
-import org.catrobat.catroid.physics.PhysicsObject;
+import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.physics.PhysicsWorld;
 import org.catrobat.catroid.physics.shapebuilder.PhysicsShapeBuilder;
 import org.catrobat.catroid.physics.shapebuilder.PhysicsShapeScaleUtils;
@@ -115,29 +115,29 @@ public class PhysicsLookTest extends InstrumentationTestCase {
 	}
 
 	public void testPositionAndAngle() {
-		PhysicsObject physicsObject = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
 		PhysicsLook physicsLook = new PhysicsLook(sprite, physicsWorld);
 
 		float x = 1.2f;
 		physicsLook.setX(x);
-		assertEquals("Wrong x position in PhysicsObject", x, physicsObject.getX());
+		assertEquals("Wrong x position in PhysicsProperties", x, physicsProperties.getX());
 		assertEquals("Wrong x position in PhysicsLook", x, physicsLook.getX());
 
 		float y = -3.4f;
 		physicsLook.setY(y);
-		assertEquals("Wrong y position in PhysicsObject", y, physicsObject.getY());
+		assertEquals("Wrong y position in PhysicsProperties", y, physicsProperties.getY());
 		assertEquals("Wrong y position in PhysicsLook", y, physicsLook.getY());
 
 		x = 5.6f;
 		y = 7.8f;
 		physicsLook.setPosition(x, y);
-		assertEquals("Wrong position", new Vector2(x, y), physicsObject.getPosition());
+		assertEquals("Wrong position", new Vector2(x, y), physicsProperties.getPosition());
 		assertEquals("Wrong x position in PhysicsLook (due to set/getPosition)", x, physicsLook.getX());
 		assertEquals("Wrong y position in PhysicsLook (due to set/getPosition)", y, physicsLook.getY());
 
 		float rotation = 9.0f;
 		physicsLook.setRotation(rotation);
-		assertEquals("Wrong physics object angle", rotation, physicsObject.getDirection());
+		assertEquals("Wrong physics object angle", rotation, physicsProperties.getDirection());
 
 		assertEquals("X position has changed", x, physicsLook.getX());
 		assertEquals("Y position has changed", y, physicsLook.getY());
@@ -152,17 +152,17 @@ public class PhysicsLookTest extends InstrumentationTestCase {
 		Pixmap pixmap = Utils.getPixmapFromFile(testImage);
 		lookData.setPixmap(pixmap);
 
-		PhysicsObject physicsObject = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
 		PhysicsLook physicsLook = new PhysicsLook(sprite, physicsWorld);
 
-		Shape[] shapes = (Shape[]) Reflection.getPrivateField(physicsObject, "shapes");
+		Shape[] shapes = (Shape[]) Reflection.getPrivateField(physicsProperties, "shapes");
 		assertEquals("Shapes are not null", null, shapes);
 
 		physicsLook.setLookData(lookData);
 
 		Queue<Float> vertexXQueue = new LinkedList<Float>();
 		Queue<Float> vertexYQueue = new LinkedList<Float>();
-		shapes = (Shape[]) Reflection.getPrivateField(physicsObject, "shapes");
+		shapes = (Shape[]) Reflection.getPrivateField(physicsProperties, "shapes");
 		assertNotNull("shapes is null", shapes);
 		assertTrue("shapes length not > 0", shapes.length > 0);
 		Log.d(TAG, "shapes.length: " + shapes.length);
@@ -204,7 +204,7 @@ public class PhysicsLookTest extends InstrumentationTestCase {
 		}
 
 		physicsLook.setScale(testScaleFactor, testScaleFactor);
-		shapes = (Shape[]) Reflection.getPrivateField(physicsObject, "shapes");
+		shapes = (Shape[]) Reflection.getPrivateField(physicsProperties, "shapes");
 		assertNotNull("shapes is null", shapes);
 		assertTrue("shapes length not > 0", shapes.length > 0);
 		Log.d(TAG, "shapes.length: " + shapes.length);

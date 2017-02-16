@@ -96,7 +96,7 @@ public class Scene implements Serializable {
 		if (context == null) {
 			return;
 		}
-
+		ProjectManager.getInstance().setCurrentScene(this);
 		Sprite background;
 		try {
 			background = new SingleSprite(context.getString(R.string.background));

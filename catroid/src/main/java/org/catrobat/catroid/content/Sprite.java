@@ -54,6 +54,7 @@ import org.catrobat.catroid.formulaeditor.UserList;
 import org.catrobat.catroid.formulaeditor.UserVariable;
 import org.catrobat.catroid.io.XStreamFieldKeyOrder;
 import org.catrobat.catroid.physics.PhysicsLook;
+import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.physics.PhysicsWorld;
 import org.catrobat.catroid.stage.StageActivity;
 import org.catrobat.catroid.ui.fragment.SpriteFactory;
@@ -84,6 +85,7 @@ public class Sprite implements Serializable, Cloneable {
 	public transient PenConfiguration penConfiguration = new PenConfiguration();
 	private transient boolean convertToSingleSprite = false;
 	private transient boolean convertToGroupItemSprite = false;
+	private transient PhysicsProperties physicsProperties;
 
 	@XStreamAsAttribute
 	private String name;
@@ -102,6 +104,7 @@ public class Sprite implements Serializable, Cloneable {
 
 	public Sprite() {
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -958,5 +961,19 @@ public class Sprite implements Serializable, Cloneable {
 			resourceBrickList.addAll(script.getBricksRequiringResources(resource));
 		}
 		return resourceBrickList;
+	}
+
+	// -----------------------------   PHYSICS -----------------------------
+	public PhysicsProperties getPhysicsProperties() {
+		if(physicsProperties == null)
+		{
+			Scene currentScene = ProjectManager.getInstance().getCurrentScene();
+			physicsProperties = new PhysicsProperties(currentScene.getPhysicsWorld().createBody(), this);
+		}
+		return physicsProperties;
+	}
+
+	public void setPhysicsProperties(PhysicsProperties physicsProperties) {
+		this.physicsProperties = physicsProperties;
 	}
 }

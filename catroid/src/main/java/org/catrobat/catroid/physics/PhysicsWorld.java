@@ -26,6 +26,7 @@ import android.util.Log;
 
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Shape;
@@ -72,7 +73,7 @@ public class PhysicsWorld {
 
 	public static final int STABILIZING_STEPS = 6;
 	private final World world = new World(PhysicsWorld.DEFAULT_GRAVITY, PhysicsWorld.IGNORE_SLEEPING_OBJECTS);
-	private final Map<Sprite, PhysicsObject> physicsObjects = new HashMap<Sprite, PhysicsObject>();
+	private final Map<Sprite, PhysicsProperties> physicsObjects = new HashMap<Sprite, PhysicsProperties>();
 	private final ArrayList<Sprite> activeVerticalBounces = new ArrayList<Sprite>();
 	private final ArrayList<Sprite> activeHorizontalBounces = new ArrayList<Sprite>();
 	private Box2DDebugRenderer renderer;
@@ -94,8 +95,8 @@ public class PhysicsWorld {
 
 	public void setBounceOnce(Sprite sprite, PhysicsBoundaryBox.BoundaryBoxIdentifier boundaryBoxIdentifier) {
 		if (physicsObjects.containsKey(sprite)) {
-			PhysicsObject physicsObject = physicsObjects.get(sprite);
-			physicsObject.setIfOnEdgeBounce(true, sprite);
+			PhysicsProperties physicsProperties = physicsObjects.get(sprite);
+			physicsProperties.setIfOnEdgeBounce(true, sprite);
 			switch (boundaryBoxIdentifier) {
 				case BBI_HORIZONTAL:
 					activeHorizontalBounces.add(sprite);
@@ -137,16 +138,16 @@ public class PhysicsWorld {
 		return world.getGravity();
 	}
 
-	public void changeLook(PhysicsObject physicsObject, Look look) {
+	public void changeLook(PhysicsProperties physicsProperties, Look look) {
 		Shape[] shapes = null;
 		if (look.getLookData() != null && look.getLookData().getLookFileName() != null) {
 			shapes = physicsShapeBuilder.getScaledShapes(look.getLookData(),
 					look.getSizeInUserInterfaceDimensionUnit() / 100f);
 		}
-		physicsObject.setShape(shapes);
+		physicsProperties.setShape(shapes);
 	}
 
-	public PhysicsObject getPhysicsObject(Sprite sprite) {
+	/*public PhysicsProperties getPhysicsObject(Sprite sprite) {
 		if (sprite == null) {
 			throw new NullPointerException();
 		}
@@ -155,36 +156,42 @@ public class PhysicsWorld {
 			return physicsObjects.get(sprite);
 		}
 
-		PhysicsObject physicsObject = createPhysicsObject(sprite);
-		physicsObjects.put(sprite, physicsObject);
+		PhysicsProperties physicsProperties = createPhysicsObject(sprite);
+		physicsObjects.put(sprite, physicsProperties);
 
-		return physicsObject;
-	}
+		return physicsProperties;
+	}*/
 
-	private PhysicsObject createPhysicsObject(Sprite sprite) {
+	/*private PhysicsProperties createPhysicsObject(Sprite sprite) {
 		BodyDef bodyDef = new BodyDef();
-		return new PhysicsObject(world.createBody(bodyDef), sprite);
-	}
+		return new PhysicsProperties(world.createBody(bodyDef), sprite);
+	}*/
 
 	public void bouncedOnEdge(Sprite sprite, PhysicsBoundaryBox.BoundaryBoxIdentifier boundaryBoxIdentifier) {
 		if (physicsObjects.containsKey(sprite)) {
-			PhysicsObject physicsObject = physicsObjects.get(sprite);
+			PhysicsProperties physicsProperties = physicsObjects.get(sprite);
 			switch (boundaryBoxIdentifier) {
 				case BBI_HORIZONTAL:
 					if (activeHorizontalBounces.remove(sprite) && !activeVerticalBounces.contains(sprite)) {
-						physicsObject.setIfOnEdgeBounce(false, sprite);
+						physicsProperties.setIfOnEdgeBounce(false, sprite);
 						PhysicsCollisionBroadcast.fireEvent(PhysicsCollision.generateBroadcastMessage(sprite.getName(),
 								PhysicsCollision.COLLISION_WITH_ANYTHING_IDENTIFIER));
 					}
 					break;
 				case BBI_VERTICAL:
 					if (activeVerticalBounces.remove(sprite) && !activeHorizontalBounces.contains(sprite)) {
-						physicsObject.setIfOnEdgeBounce(false, sprite);
+						physicsProperties.setIfOnEdgeBounce(false, sprite);
 						PhysicsCollisionBroadcast.fireEvent(PhysicsCollision.generateBroadcastMessage(sprite.getName(),
 								PhysicsCollision.COLLISION_WITH_ANYTHING_IDENTIFIER));
 					}
 					break;
 			}
 		}
+	}
+
+	public Body createBody()
+	{
+		BodyDef bodyDef = new BodyDef();
+		return world.createBody(bodyDef);
 	}
 }

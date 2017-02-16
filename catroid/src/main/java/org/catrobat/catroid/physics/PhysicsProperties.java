@@ -38,7 +38,7 @@ import org.catrobat.catroid.content.Sprite;
 
 import java.util.Arrays;
 
-public class PhysicsObject {
+public class PhysicsProperties {
 
 	public enum Type {
 		DYNAMIC, FIXED, NONE
@@ -76,13 +76,13 @@ public class PhysicsObject {
 	private float gravityScale = 0;
 	private Type savedType = Type.NONE;
 
-	public PhysicsObject(Body b, Sprite sprite) {
+	public PhysicsProperties(Body b, Sprite sprite) {
 		body = b;
 		body.setUserData(sprite);
-		mass = PhysicsObject.DEFAULT_MASS;
-		fixtureDef.density = PhysicsObject.DEFAULT_DENSITY;
-		fixtureDef.friction = PhysicsObject.DEFAULT_FRICTION;
-		fixtureDef.restitution = PhysicsObject.DEFAULT_BOUNCE_FACTOR;
+		mass = PhysicsProperties.DEFAULT_MASS;
+		fixtureDef.density = PhysicsProperties.DEFAULT_DENSITY;
+		fixtureDef.friction = PhysicsProperties.DEFAULT_FRICTION;
+		fixtureDef.restitution = PhysicsProperties.DEFAULT_BOUNCE_FACTOR;
 		setType(Type.NONE);
 
 		tmpVertice = new Vector2();
@@ -232,10 +232,10 @@ public class PhysicsObject {
 		this.mass = mass;
 
 		if (mass < 0) {
-			this.mass = PhysicsObject.MIN_MASS;
+			this.mass = PhysicsProperties.MIN_MASS;
 		}
-		if (mass < PhysicsObject.MIN_MASS) {
-			mass = PhysicsObject.MIN_MASS;
+		if (mass < PhysicsProperties.MIN_MASS) {
+			mass = PhysicsProperties.MIN_MASS;
 		}
 		if (isStaticObject()) {
 			return;
@@ -251,7 +251,7 @@ public class PhysicsObject {
 
 	private void setDensity(float density) {
 		if (density < MIN_DENSITY) {
-			density = PhysicsObject.MIN_DENSITY;
+			density = PhysicsProperties.MIN_DENSITY;
 		}
 		fixtureDef.density = density;
 		for (Fixture fixture : body.getFixtureList()) {

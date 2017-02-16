@@ -43,7 +43,7 @@ import org.catrobat.catroid.content.bricks.WhenStartedBrick;
 import org.catrobat.catroid.formulaeditor.Formula;
 import org.catrobat.catroid.formulaeditor.InterpretationException;
 import org.catrobat.catroid.io.StorageHandler;
-import org.catrobat.catroid.physics.PhysicsObject;
+import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.physics.PhysicsWorld;
 import org.catrobat.catroid.physics.content.bricks.CollisionReceiverBrick;
 import org.catrobat.catroid.physics.content.bricks.SetBounceBrick;
@@ -72,7 +72,7 @@ public class PhysicsSpriteCloneTest extends InstrumentationTestCase {
 	private static final float FRICTION_TEST_VALUE = 0.5f;
 	private static final Vector2 GRAVITY_TEST_VALUE = new Vector2(10.0f, 10.0f);
 	private static final float MASS_TEST_VALUE = 5.0f;
-	private static final PhysicsObject.Type TYPE_TEST_VALUE = PhysicsObject.Type.DYNAMIC;
+	private static final PhysicsProperties.Type TYPE_TEST_VALUE = PhysicsProperties.Type.DYNAMIC;
 	private static final Vector2 VELOCITY_TEST_VALUE = new Vector2(15.0f, 15.0f);
 	private static final float TURN_LEFT_SPEED_TEST_VALUE = 2.0f;
 	private static final float TURN_RIGHT_SPEED_TEST_VALUE = 3.0f;
@@ -205,15 +205,15 @@ public class PhysicsSpriteCloneTest extends InstrumentationTestCase {
 		assertNotNull("File must not be null.", rectangle125x125File);
 		assertNotNull("Lookdata must not be null.", sprite.look.getLookData());
 
-		PhysicsObject physicsObject = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
 
 		Sprite clonedSprite = sprite.clone();
 
 		assertTrue("Look of cloned sprite is no look.", clonedSprite.look instanceof Look);
 
-		PhysicsObject clonedPhysicsObject = physicsWorld.getPhysicsObject(clonedSprite);
-		assertEquals("Cloned Physics Object must be equal.", physicsObject.getType(), clonedPhysicsObject.getType());
-		clonedPhysicsObject.setType(PhysicsObject.Type.FIXED);
-		assertNotSame("Cloned Physics Object value must be different.", physicsObject.getType(), clonedPhysicsObject.getType());
+		PhysicsProperties clonedPhysicsProperties = physicsWorld.getPhysicsObject(clonedSprite);
+		assertEquals("Cloned Physics Object must be equal.", physicsProperties.getType(), clonedPhysicsProperties.getType());
+		clonedPhysicsProperties.setType(PhysicsProperties.Type.FIXED);
+		assertNotSame("Cloned Physics Object value must be different.", physicsProperties.getType(), clonedPhysicsProperties.getType());
 	}
 }

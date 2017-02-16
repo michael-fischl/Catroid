@@ -32,4 +32,5 @@ public class SingleSprite extends Sprite {
 	public SingleSprite() {
 		super();
 	}
+
 }
