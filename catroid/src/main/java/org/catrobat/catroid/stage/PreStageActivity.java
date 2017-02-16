@@ -55,6 +55,7 @@ import org.catrobat.catroid.drone.DroneInitializer;
 import org.catrobat.catroid.drone.DroneServiceWrapper;
 import org.catrobat.catroid.facedetection.FaceDetectionHandler;
 import org.catrobat.catroid.formulaeditor.SensorHandler;
+import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.sensing.GatherCollisionInformationTask;
 import org.catrobat.catroid.ui.BaseActivity;
 import org.catrobat.catroid.ui.SettingsActivity;
@@ -108,6 +109,7 @@ public class PreStageActivity extends BaseActivity implements GatherCollisionInf
 			for(Sprite sprite : scene.getSpriteList())
 			{
 				sprite.setActionFactory(actionFactory);
+				sprite.setPhysicsProperties(new PhysicsProperties(scene.getPhysicsWorld().createBody(), sprite));
 			}
 		}
 

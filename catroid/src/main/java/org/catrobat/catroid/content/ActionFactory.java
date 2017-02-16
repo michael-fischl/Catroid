@@ -143,7 +143,6 @@ import org.catrobat.catroid.content.actions.WaitAction;
 import org.catrobat.catroid.content.actions.WaitForBubbleBrickAction;
 import org.catrobat.catroid.content.actions.WaitUntilAction;
 import org.catrobat.catroid.content.actions.conditional.GlideToAction;
-import org.catrobat.catroid.content.actions.conditional.IfOnEdgeBounceAction;
 import org.catrobat.catroid.content.bricks.LegoEv3MotorMoveBrick;
 import org.catrobat.catroid.content.bricks.LegoEv3MotorStopBrick;
 import org.catrobat.catroid.content.bricks.LegoEv3MotorTurnAngleBrick;
@@ -160,9 +159,7 @@ import org.catrobat.catroid.content.bricks.UserBrick;
 import org.catrobat.catroid.formulaeditor.Formula;
 import org.catrobat.catroid.formulaeditor.UserList;
 import org.catrobat.catroid.formulaeditor.UserVariable;
-import org.catrobat.catroid.physics.PhysicsLook;
-import org.catrobat.catroid.physics.PhysicsProperties;
-import org.catrobat.catroid.physics.PhysicsWorld;
+import org.catrobat.catroid.physics.*;
 import org.catrobat.catroid.physics.content.actions.GlideToPhysicsAction;
 import org.catrobat.catroid.physics.content.actions.IfOnEdgeBouncePhysicsAction;
 import org.catrobat.catroid.physics.content.actions.SetBounceFactorAction;
@@ -1081,7 +1078,7 @@ public class ActionFactory extends Actions {
 		action.setPosition(x, y);
 		action.setDuration(duration);
 		action.setSprite(sprite);
-		action.setPhysicsLook((PhysicsLook) sprite.look);
+		action.setLook(sprite.look);
 		return action;
 	}
 

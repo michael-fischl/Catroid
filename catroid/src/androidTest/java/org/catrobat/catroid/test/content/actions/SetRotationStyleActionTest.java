@@ -27,11 +27,10 @@ import android.test.AndroidTestCase;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
 import org.catrobat.catroid.content.ActionFactory;
-import org.catrobat.catroid.content.Look;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.bricks.PointInDirectionBrick.Direction;
 import org.catrobat.catroid.formulaeditor.Formula;
-import org.catrobat.catroid.physics.PhysicsLook;
+import org.catrobat.catroid.physics.Look;
 import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.physics.PhysicsWorld;
 
@@ -49,7 +48,7 @@ public class SetRotationStyleActionTest extends AndroidTestCase {
 
 	public void testNormalMode() {
 		ActionFactory factory = sprite.getActionFactory();
-		Action rotationStyleAction = factory.createSetRotationStyleAction(sprite, Look.ROTATION_STYLE_ALL_AROUND);
+		Action rotationStyleAction = factory.createSetRotationStyleAction(sprite, org.catrobat.catroid.content.Look.ROTATION_STYLE_ALL_AROUND);
 		Action pointInDirectionAction = factory.createPointInDirectionAction(sprite, new Formula(Direction.RIGHT
 				.getDegrees()));
 
@@ -60,7 +59,7 @@ public class SetRotationStyleActionTest extends AndroidTestCase {
 
 	public void testNoMode() {
 		ActionFactory factory = sprite.getActionFactory();
-		Action rotationStyleAction = factory.createSetRotationStyleAction(sprite, Look.ROTATION_STYLE_NONE);
+		Action rotationStyleAction = factory.createSetRotationStyleAction(sprite, org.catrobat.catroid.content.Look.ROTATION_STYLE_NONE);
 		Action pointInDirectionAction = factory.createPointInDirectionAction(sprite, new Formula(Direction.LEFT
 				.getDegrees()));
 
@@ -72,7 +71,7 @@ public class SetRotationStyleActionTest extends AndroidTestCase {
 
 	public void testLRMode() {
 		ActionFactory factory = sprite.getActionFactory();
-		Action rotationStyleAction = factory.createSetRotationStyleAction(sprite, Look.ROTATION_STYLE_LEFT_RIGHT_ONLY);
+		Action rotationStyleAction = factory.createSetRotationStyleAction(sprite, org.catrobat.catroid.content.Look.ROTATION_STYLE_LEFT_RIGHT_ONLY);
 		Action pointInDirectionAction = factory.createPointInDirectionAction(sprite, new Formula(Direction.LEFT
 				.getDegrees()));
 
@@ -87,70 +86,70 @@ public class SetRotationStyleActionTest extends AndroidTestCase {
 
 	public void testNormalModeInPhysics() {
 		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
-		PhysicsLook physicsLook = new PhysicsLook(sprite, physicsWorld);
+		Look look = new Look(sprite, physicsWorld);
 
-		physicsLook.setRotationMode(Look.ROTATION_STYLE_ALL_AROUND);
+		look.setRotationMode(org.catrobat.catroid.content.Look.ROTATION_STYLE_ALL_AROUND);
 
-		physicsLook.setRotation((float) Direction.RIGHT.getDegrees());
+		look.setRotation((float) Direction.RIGHT.getDegrees());
 		assertEquals("Wrong physics object angle (Right)", 90f, physicsProperties.getDirection());
-		assertEquals("Wrong direction (Right)", 90f, physicsLook.getRotation());
+		assertEquals("Wrong direction (Right)", 90f, look.getRotation());
 
-		physicsLook.setRotation((float) Direction.LEFT.getDegrees());
+		look.setRotation((float) Direction.LEFT.getDegrees());
 		assertEquals("Wrong physics object angle (Left)", -90f, physicsProperties.getDirection());
-		assertEquals("Wrong direction (Left)", -90f, physicsLook.getRotation());
+		assertEquals("Wrong direction (Left)", -90f, look.getRotation());
 
-		physicsLook.setRotation((float) Direction.UP.getDegrees());
+		look.setRotation((float) Direction.UP.getDegrees());
 		assertEquals("Wrong physics object angle (Up)", 0f, physicsProperties.getDirection());
-		assertEquals("Wrong direction (Up)", 0f, physicsLook.getRotation());
+		assertEquals("Wrong direction (Up)", 0f, look.getRotation());
 
-		physicsLook.setRotation((float) Direction.DOWN.getDegrees());
+		look.setRotation((float) Direction.DOWN.getDegrees());
 		assertEquals("Wrong physics object angle (Down)", 180f, physicsProperties.getDirection());
-		assertEquals("Wrong direction (Down)", 180f, physicsLook.getRotation());
+		assertEquals("Wrong direction (Down)", 180f, look.getRotation());
 	}
 
 	public void testNoModeInPhysics() {
 		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
-		PhysicsLook physicsLook = new PhysicsLook(sprite, physicsWorld);
+		Look look = new Look(sprite, physicsWorld);
 
-		physicsLook.setRotationMode(Look.ROTATION_STYLE_NONE);
+		look.setRotationMode(org.catrobat.catroid.content.Look.ROTATION_STYLE_NONE);
 
-		physicsLook.setRotation((float) Direction.RIGHT.getDegrees());
+		look.setRotation((float) Direction.RIGHT.getDegrees());
 		assertEquals("Wrong physics object angle (Right)", 90f, physicsProperties.getDirection());
-		assertEquals("Wrong direction (Right)", 0f, physicsLook.getRotation());
+		assertEquals("Wrong direction (Right)", 0f, look.getRotation());
 
-		physicsLook.setRotation((float) Direction.LEFT.getDegrees());
+		look.setRotation((float) Direction.LEFT.getDegrees());
 		assertEquals("Wrong physics object angle (Left)", -90f, physicsProperties.getDirection());
-		assertEquals("Wrong direction (Left)", 0f, physicsLook.getRotation());
+		assertEquals("Wrong direction (Left)", 0f, look.getRotation());
 
-		physicsLook.setRotation((float) Direction.UP.getDegrees());
+		look.setRotation((float) Direction.UP.getDegrees());
 		assertEquals("Wrong physics object angle (Up)", 0f, physicsProperties.getDirection());
-		assertEquals("Wrong direction (Up)", 0f, physicsLook.getRotation());
+		assertEquals("Wrong direction (Up)", 0f, look.getRotation());
 
-		physicsLook.setRotation((float) Direction.DOWN.getDegrees());
+		look.setRotation((float) Direction.DOWN.getDegrees());
 		assertEquals("Wrong physics object angle (Down)", 180f, physicsProperties.getDirection());
-		assertEquals("Wrong direction (Down)", 0f, physicsLook.getRotation());
+		assertEquals("Wrong direction (Down)", 0f, look.getRotation());
 	}
 
 	public void testLRModeInPhysics() {
 		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
-		PhysicsLook physicsLook = new PhysicsLook(sprite, physicsWorld);
+		Look look = new Look(sprite, physicsWorld);
 
-		physicsLook.setRotationMode(Look.ROTATION_STYLE_LEFT_RIGHT_ONLY);
+		look.setRotationMode(org.catrobat.catroid.content.Look.ROTATION_STYLE_LEFT_RIGHT_ONLY);
 
-		physicsLook.setRotation((float) Direction.RIGHT.getDegrees());
+		look.setRotation((float) Direction.RIGHT.getDegrees());
 		assertEquals("Wrong physics object angle (Right)", 90f, physicsProperties.getDirection());
-		assertEquals("Wrong direction (Right)", 0f, physicsLook.getRotation());
+		assertEquals("Wrong direction (Right)", 0f, look.getRotation());
 
-		physicsLook.setRotation((float) Direction.LEFT.getDegrees());
+		look.setRotation((float) Direction.LEFT.getDegrees());
 		assertEquals("Wrong physics object angle (Left)", -90f, physicsProperties.getDirection());
-		assertEquals("Wrong direction (Left)", 0f, physicsLook.getRotation());
+		assertEquals("Wrong direction (Left)", 0f, look.getRotation());
 
-		physicsLook.setRotation((float) Direction.UP.getDegrees());
+		look.setRotation((float) Direction.UP.getDegrees());
 		assertEquals("Wrong physics object angle (Up)", 0f, physicsProperties.getDirection());
-		assertEquals("Wrong direction (Up)", 0f, physicsLook.getRotation());
+		assertEquals("Wrong direction (Up)", 0f, look.getRotation());
 
-		physicsLook.setRotation((float) Direction.DOWN.getDegrees());
+		look.setRotation((float) Direction.DOWN.getDegrees());
 		assertEquals("Wrong physics object angle (Down)", 180f, physicsProperties.getDirection());
-		assertEquals("Wrong direction (Down)", 0f, physicsLook.getRotation());
+		assertEquals("Wrong direction (Down)", 0f, look.getRotation());
 	}
 }

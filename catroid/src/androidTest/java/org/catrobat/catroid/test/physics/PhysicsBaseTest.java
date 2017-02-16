@@ -30,7 +30,7 @@ import org.catrobat.catroid.content.ActionFactory;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.io.StorageHandler;
-import org.catrobat.catroid.physics.PhysicsLook;
+import org.catrobat.catroid.physics.Look;
 import org.catrobat.catroid.physics.PhysicsWorld;
 import org.catrobat.catroid.test.R;
 import org.catrobat.catroid.test.utils.PhysicsTestUtils;
@@ -58,7 +58,7 @@ public class PhysicsBaseTest extends InstrumentationTestCase {
 
 		physicsWorld = project.getDefaultScene().getPhysicsWorld();
 		sprite = new Sprite("TestSprite");
-		sprite.look = new PhysicsLook(sprite, physicsWorld);
+		sprite.look = new Look(sprite, physicsWorld);
 
 		project.getDefaultScene().addSprite(sprite);
 

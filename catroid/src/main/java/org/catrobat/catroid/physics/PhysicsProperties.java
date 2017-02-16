@@ -34,6 +34,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.Transform;
 import com.badlogic.gdx.utils.Array;
 
+import org.catrobat.catroid.content.Look;
 import org.catrobat.catroid.content.Sprite;
 
 import java.util.Arrays;
@@ -83,7 +84,7 @@ public class PhysicsProperties {
 		fixtureDef.density = PhysicsProperties.DEFAULT_DENSITY;
 		fixtureDef.friction = PhysicsProperties.DEFAULT_FRICTION;
 		fixtureDef.restitution = PhysicsProperties.DEFAULT_BOUNCE_FACTOR;
-		setType(Type.NONE);
+		type = Type.NONE;
 
 		tmpVertice = new Vector2();
 	}
@@ -336,8 +337,8 @@ public class PhysicsProperties {
 	private void updateNonCollidingState() {
 		if (body.getUserData() != null && body.getUserData() instanceof Sprite) {
 			Object look = ((Sprite) body.getUserData()).look;
-			if (look != null && look instanceof PhysicsLook) {
-				((PhysicsLook) look).setNonColliding(isNonColliding());
+			if (look != null && look instanceof Look) {
+				((Look) look).setNonColliding(isNonColliding());
 			}
 		}
 	}

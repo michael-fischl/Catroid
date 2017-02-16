@@ -53,9 +53,7 @@ import org.catrobat.catroid.formulaeditor.InterpretationException;
 import org.catrobat.catroid.formulaeditor.UserList;
 import org.catrobat.catroid.formulaeditor.UserVariable;
 import org.catrobat.catroid.io.XStreamFieldKeyOrder;
-import org.catrobat.catroid.physics.PhysicsLook;
 import org.catrobat.catroid.physics.PhysicsProperties;
-import org.catrobat.catroid.physics.PhysicsWorld;
 import org.catrobat.catroid.stage.StageActivity;
 import org.catrobat.catroid.ui.fragment.SpriteFactory;
 
@@ -80,7 +78,7 @@ public class Sprite implements Serializable, Cloneable {
 
 	private static SpriteFactory spriteFactory = new SpriteFactory();
 
-	public transient Look look = new Look(this);
+	public transient org.catrobat.catroid.content.Look look = new org.catrobat.catroid.content.Look(this);
 	public transient boolean isBackpackObject = false;
 	public transient PenConfiguration penConfiguration = new PenConfiguration();
 	private transient boolean convertToSingleSprite = false;
@@ -104,7 +102,6 @@ public class Sprite implements Serializable, Cloneable {
 
 	public Sprite() {
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -172,12 +169,9 @@ public class Sprite implements Serializable, Cloneable {
 	}
 
 	public void resetSprite() {
-		if ((getRequiredResources() & Brick.PHYSICS) > 0) {
-			PhysicsWorld physicsWorld = ProjectManager.getInstance().getSceneToPlay().getPhysicsWorld();
-			look = new PhysicsLook(this, physicsWorld);
-		} else {
-			look = new Look(this);
-		}
+
+		look = new Look(this);
+
 		for (LookData lookData : lookList) {
 			lookData.resetLookData();
 		}
@@ -965,11 +959,6 @@ public class Sprite implements Serializable, Cloneable {
 
 	// -----------------------------   PHYSICS -----------------------------
 	public PhysicsProperties getPhysicsProperties() {
-		if(physicsProperties == null)
-		{
-			Scene currentScene = ProjectManager.getInstance().getCurrentScene();
-			physicsProperties = new PhysicsProperties(currentScene.getPhysicsWorld().createBody(), this);
-		}
 		return physicsProperties;
 	}
 

@@ -34,7 +34,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import org.catrobat.catroid.common.LookData;
 import org.catrobat.catroid.content.ActionFactory;
 import org.catrobat.catroid.content.Sprite;
-import org.catrobat.catroid.physics.PhysicsLook;
+import org.catrobat.catroid.physics.Look;
 import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.physics.PhysicsWorld;
 import org.catrobat.catroid.test.utils.PhysicsTestUtils;
@@ -66,7 +66,7 @@ public abstract class PhysicsCollisionBaseTest extends PhysicsBaseTest implement
 		super.setUp();
 
 		sprite2 = new Sprite("TestSprite2");
-		sprite2.look = new PhysicsLook(sprite2, physicsWorld);
+		sprite2.look = new Look(sprite2, physicsWorld);
 		sprite2.setActionFactory(new ActionFactory());
 
 		LookData lookdata = PhysicsTestUtils.generateLookData(rectangle125x125File);

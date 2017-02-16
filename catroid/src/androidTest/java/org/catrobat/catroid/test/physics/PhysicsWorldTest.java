@@ -30,7 +30,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
 import org.catrobat.catroid.content.Sprite;
-import org.catrobat.catroid.physics.PhysicsLook;
+import org.catrobat.catroid.physics.Look;
 import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.physics.PhysicsProperties.Type;
 import org.catrobat.catroid.physics.PhysicsWorld;
@@ -140,7 +140,7 @@ public class PhysicsWorldTest extends AndroidTestCase {
 	public void testSteps() throws SecurityException, IllegalArgumentException, NoSuchFieldException,
 			IllegalAccessException {
 		Sprite sprite = new Sprite("TestSprite");
-		sprite.look = new PhysicsLook(sprite, physicsWorld);
+		sprite.look = new Look(sprite, physicsWorld);
 
 		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
 

@@ -73,7 +73,6 @@ import org.catrobat.catroid.facedetection.FaceDetectionHandler;
 import org.catrobat.catroid.formulaeditor.DataContainer;
 import org.catrobat.catroid.io.SoundManager;
 import org.catrobat.catroid.physics.PhysicsDebugSettings;
-import org.catrobat.catroid.physics.PhysicsLook;
 import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.physics.PhysicsWorld;
 import org.catrobat.catroid.physics.shapebuilder.PhysicsShapeBuilder;
@@ -650,7 +649,7 @@ public class StageListener implements ApplicationListener {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		for (Sprite sprite : sprites) {
-			if (sprite.look instanceof PhysicsLook) {
+			if (sprite.look instanceof Look) {
 				tempPhysicsProperties = sprite.getPhysicsProperties();
 				font.draw(batch, "velocity_x: " + tempPhysicsProperties.getVelocity().x, tempPhysicsProperties.getX(),
 						tempPhysicsProperties.getY());
@@ -836,7 +835,7 @@ public class StageListener implements ApplicationListener {
 		return stage;
 	}
 
-	public void removeActor(Look look) {
+	public void removeActor(org.catrobat.catroid.content.Look look) {
 		look.remove();
 	}
 

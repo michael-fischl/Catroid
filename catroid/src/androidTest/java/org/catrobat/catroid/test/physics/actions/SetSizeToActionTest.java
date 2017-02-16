@@ -25,7 +25,7 @@ package org.catrobat.catroid.test.physics.actions;
 import com.badlogic.gdx.math.Vector2;
 
 import org.catrobat.catroid.formulaeditor.Formula;
-import org.catrobat.catroid.physics.PhysicsLook;
+import org.catrobat.catroid.physics.Look;
 import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.test.physics.PhysicsBaseTest;
 import org.catrobat.catroid.test.utils.Reflection;
@@ -33,15 +33,15 @@ import org.catrobat.catroid.test.utils.TestUtils;
 
 public class SetSizeToActionTest extends PhysicsBaseTest {
 
-	private PhysicsLook physicsLook;
+	private Look look;
 	private PhysicsProperties physicsProperties;
 	public static final float SIZE_COMPARISON_DELTA = 1.0f;
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		this.physicsLook = (PhysicsLook) sprite.look;
-		this.physicsProperties = (PhysicsProperties) Reflection.getPrivateField(physicsLook, "physicsProperties");
+		this.look = (Look) sprite.look;
+		this.physicsProperties = (PhysicsProperties) Reflection.getPrivateField(look, "physicsProperties");
 	}
 
 	public void testSizeLarger() {

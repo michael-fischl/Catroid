@@ -30,7 +30,7 @@ import org.catrobat.catroid.content.actions.SetVisibleAction;
 import org.catrobat.catroid.content.actions.SetXAction;
 import org.catrobat.catroid.content.actions.SetYAction;
 import org.catrobat.catroid.formulaeditor.Formula;
-import org.catrobat.catroid.physics.PhysicsLook;
+import org.catrobat.catroid.physics.Look;
 import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.physics.PhysicsWorld;
 import org.catrobat.catroid.physics.content.actions.GlideToPhysicsAction;
@@ -158,7 +158,7 @@ public class PhysicsObjectStateTest extends PhysicsBaseTest {
 	// HELPER ----------------------------------------------------------------------------------------------------------
 
 	private void allConditionsInactiveCheck() {
-		((PhysicsLook) sprite.look).updatePhysicsObjectState(true);
+		((Look) sprite.look).updatePhysicsObjectState(true);
 		boolean hangedUp = (Boolean) Reflection.getPrivateField(physicsObjectStateHandler, "hangedUp");
 		assertFalse("Unexpected physicsProperties-status: hangedUp should be inactive", hangedUp);
 
@@ -170,7 +170,7 @@ public class PhysicsObjectStateTest extends PhysicsBaseTest {
 	}
 
 	private void hangupNonCollidingActiveCheck() {
-		((PhysicsLook) sprite.look).updatePhysicsObjectState(true);
+		((Look) sprite.look).updatePhysicsObjectState(true);
 		boolean hangedUp = (Boolean) Reflection.getPrivateField(physicsObjectStateHandler, "hangedUp");
 		assertTrue("Unexpected physicsProperties-status: hangup should be active", hangedUp);
 
@@ -182,7 +182,7 @@ public class PhysicsObjectStateTest extends PhysicsBaseTest {
 	}
 
 	private void hangupFixedActiveCheck() {
-		((PhysicsLook) sprite.look).updatePhysicsObjectState(true);
+		((Look) sprite.look).updatePhysicsObjectState(true);
 		boolean hangedUp = (Boolean) Reflection.getPrivateField(physicsObjectStateHandler, "hangedUp");
 		assertTrue("Unexpected physicsProperties-status: hangup should be active", hangedUp);
 
@@ -194,7 +194,7 @@ public class PhysicsObjectStateTest extends PhysicsBaseTest {
 	}
 
 	private void hangupFixedNonCollidingActiveCheck() {
-		((PhysicsLook) sprite.look).updatePhysicsObjectState(true);
+		((Look) sprite.look).updatePhysicsObjectState(true);
 		boolean hangedUp = (Boolean) Reflection.getPrivateField(physicsObjectStateHandler, "hangedUp");
 		assertTrue("Unexpected physicsProperties-status: hangup should be active", hangedUp);
 
@@ -246,7 +246,7 @@ public class PhysicsObjectStateTest extends PhysicsBaseTest {
 	private Action glideTo(Formula x, Formula y) {
 		GlideToPhysicsAction glideToPhysicsAction = new GlideToPhysicsAction();
 		glideToPhysicsAction.setSprite(sprite);
-		glideToPhysicsAction.setPhysicsLook((PhysicsLook) sprite.look);
+		glideToPhysicsAction.setLook((Look) sprite.look);
 		glideToPhysicsAction.setPosition(x, y);
 		glideToPhysicsAction.setDuration(2.0f);
 		glideToPhysicsAction.act(1.0f);
