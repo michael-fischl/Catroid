@@ -109,7 +109,6 @@ public class PreStageActivity extends BaseActivity implements GatherCollisionInf
 			for(Sprite sprite : scene.getSpriteList())
 			{
 				sprite.setActionFactory(actionFactory);
-				sprite.setPhysicsProperties(new PhysicsProperties(scene.getPhysicsWorld().createBody(), sprite));
 			}
 		}
 

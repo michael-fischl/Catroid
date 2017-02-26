@@ -84,7 +84,6 @@ public class PhysicsProperties {
 		fixtureDef.density = PhysicsProperties.DEFAULT_DENSITY;
 		fixtureDef.friction = PhysicsProperties.DEFAULT_FRICTION;
 		fixtureDef.restitution = PhysicsProperties.DEFAULT_BOUNCE_FACTOR;
-		type = Type.NONE;
 
 		tmpVertice = new Vector2();
 	}

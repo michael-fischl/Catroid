@@ -226,6 +226,8 @@ public class StageListener implements ApplicationListener {
 				stage.addActor(penActor);
 				addPenActor = false;
 			}
+			sprite.setPhysicsProperties(new PhysicsProperties(physicsWorld.createBody(), sprite));
+			sprite.getPhysicsProperties().setType(PhysicsProperties.Type.NONE);
 		}
 		passepartout = new Passepartout(ScreenValues.SCREEN_WIDTH, ScreenValues.SCREEN_HEIGHT, maximizeViewPortWidth,
 				maximizeViewPortHeight, virtualWidth, virtualHeight);
@@ -576,6 +578,7 @@ public class StageListener implements ApplicationListener {
 			makeTestPixels = false;
 		}
 
+
 		if (drawDebugCollisionPolygons) {
 			drawDebugCollisionPolygons();
 		}
@@ -835,7 +838,7 @@ public class StageListener implements ApplicationListener {
 		return stage;
 	}
 
-	public void removeActor(org.catrobat.catroid.content.Look look) {
+	public void removeActor(Look look) {
 		look.remove();
 	}
 
