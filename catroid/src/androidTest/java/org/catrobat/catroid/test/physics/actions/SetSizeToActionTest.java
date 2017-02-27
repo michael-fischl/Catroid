@@ -24,8 +24,8 @@ package org.catrobat.catroid.test.physics.actions;
 
 import com.badlogic.gdx.math.Vector2;
 
+import org.catrobat.catroid.content.Look;
 import org.catrobat.catroid.formulaeditor.Formula;
-import org.catrobat.catroid.physics.Look;
 import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.test.physics.PhysicsBaseTest;
 import org.catrobat.catroid.test.utils.Reflection;

@@ -42,9 +42,9 @@ public final class PhysicsTestUtils {
 		throw new AssertionError();
 	}
 
-	public static PhysicsProperties createPhysicsObject(PhysicsWorld physicsWorld, PhysicsProperties.Type type, float width,
+	public static PhysicsProperties createPhysicsProperties(PhysicsWorld physicsWorld, PhysicsProperties.Type type, float width,
 			float height) {
-		return createPhysicsObject(physicsWorld, type, createRectanglePolygonShape(width, height));
+		return createPhysicsProperties(physicsWorld, type, createRectanglePolygonShape(width, height));
 	}
 
 	public static PolygonShape createRectanglePolygonShape(float width, float height) {
@@ -53,11 +53,17 @@ public final class PhysicsTestUtils {
 		return rectangle;
 	}
 
-	public static PhysicsProperties createPhysicsObject(PhysicsWorld physicsWorld, PhysicsProperties.Type type, Shape shape) {
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(new SingleSprite("TestSprite"));
+	public static PhysicsProperties createPhysicsProperties(PhysicsWorld physicsWorld, PhysicsProperties.Type type, Shape shape) {
+		SingleSprite sprite = new SingleSprite("TestSprite");
+		PhysicsProperties physicsProperties = new PhysicsProperties(physicsWorld.createBody(), sprite);
+		sprite.setPhysicsProperties(physicsProperties);
 
 		if (type != null) {
 			physicsProperties.setType(type);
+		}
+		else
+		{
+			physicsProperties.setType(PhysicsProperties.Type.NONE);
 		}
 
 		if (shape != null) {
@@ -66,12 +72,12 @@ public final class PhysicsTestUtils {
 		return physicsProperties;
 	}
 
-	public static PhysicsProperties createPhysicsObject(PhysicsWorld physicsWorld, PhysicsProperties.Type type) {
-		return createPhysicsObject(physicsWorld, type, null);
+	public static PhysicsProperties createPhysicsProperties(PhysicsWorld physicsWorld, PhysicsProperties.Type type) {
+		return createPhysicsProperties(physicsWorld, type, null);
 	}
 
-	public static PhysicsProperties createPhysicsObject(PhysicsWorld physicsWorld) {
-		return createPhysicsObject(physicsWorld, null, null);
+	public static PhysicsProperties createPhysicsProperties(PhysicsWorld physicsWorld) {
+		return createPhysicsProperties(physicsWorld, null, null);
 	}
 
 	public static Body getBody(PhysicsProperties physicsProperties) {

@@ -33,8 +33,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import org.catrobat.catroid.common.LookData;
 import org.catrobat.catroid.content.ActionFactory;
+import org.catrobat.catroid.content.Look;
 import org.catrobat.catroid.content.Sprite;
-import org.catrobat.catroid.physics.Look;
 import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.physics.PhysicsWorld;
 import org.catrobat.catroid.test.utils.PhysicsTestUtils;
@@ -66,15 +66,16 @@ public abstract class PhysicsCollisionBaseTest extends PhysicsBaseTest implement
 		super.setUp();
 
 		sprite2 = new Sprite("TestSprite2");
-		sprite2.look = new Look(sprite2, physicsWorld);
+		sprite2.look = new Look(sprite2);
 		sprite2.setActionFactory(new ActionFactory());
+		sprite2.setPhysicsProperties(new PhysicsProperties(physicsWorld.createBody(),sprite2));
 
 		LookData lookdata = PhysicsTestUtils.generateLookData(rectangle125x125File);
 		sprite2.look.setLookData(lookdata);
 		assertTrue("getLookData is null", sprite2.look.getLookData() != null);
 
-		physicsProperties1 = physicsWorld.getPhysicsObject(sprite);
-		physicsProperties2 = physicsWorld.getPhysicsObject(sprite2);
+		physicsProperties1 = sprite.getPhysicsProperties();
+		physicsProperties2 = sprite2.getPhysicsProperties();
 
 		World world = (World) Reflection.getPrivateField(PhysicsWorld.class, physicsWorld, "world");
 		physicsCollisionTestListener = new PhysicsCollisionTestListener(this, physicsWorld);

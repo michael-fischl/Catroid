@@ -44,33 +44,33 @@ public class SetBounceFactorActionTest extends PhysicsCollisionBaseTest {
 
 	public void testNormalBounceFactor() {
 		initBounceFactorValue(BOUNCE_FACTOR);
-		assertEquals("Unexpected bounce factor", BOUNCE_FACTOR / 100.0f, physicsWorld.getPhysicsObject(sprite)
+		assertEquals("Unexpected bounce factor", BOUNCE_FACTOR / 100.0f, sprite.getPhysicsProperties()
 				.getBounceFactor());
 	}
 
 	public void testZeroValue() {
 		float bounceFactor = 0.0f;
 		initBounceFactorValue(bounceFactor);
-		assertEquals("Unexpected bounce factor", bounceFactor / 100.0f, physicsWorld.getPhysicsObject(sprite)
+		assertEquals("Unexpected bounce factor", bounceFactor / 100.0f, sprite.getPhysicsProperties()
 				.getBounceFactor());
 	}
 
 	public void testNegativeValue() {
 		float bounceFactor = -50.0f;
 		initBounceFactorValue(bounceFactor);
-		assertEquals("Unexpected bounce factor", PhysicsProperties.MIN_BOUNCE_FACTOR, physicsWorld.getPhysicsObject(sprite)
+		assertEquals("Unexpected bounce factor", PhysicsProperties.MIN_BOUNCE_FACTOR, sprite.getPhysicsProperties()
 				.getBounceFactor());
 	}
 
 	public void testHighValue() {
 		float bounceFactor = 1000.0f;
 		initBounceFactorValue(bounceFactor);
-		assertEquals("Unexpected bounce factor", bounceFactor / 100.0f, physicsWorld.getPhysicsObject(sprite)
+		assertEquals("Unexpected bounce factor", bounceFactor / 100.0f, sprite.getPhysicsProperties()
 				.getBounceFactor());
 	}
 
 	private void initBounceFactorValue(float bounceFactor) {
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 		Action action = sprite.getActionFactory().createSetBounceFactorAction(sprite, new Formula(bounceFactor));
 
 		assertEquals("Unexpected bounce-factor value", PhysicsProperties.DEFAULT_BOUNCE_FACTOR,
@@ -81,7 +81,7 @@ public class SetBounceFactorActionTest extends PhysicsCollisionBaseTest {
 	}
 
 	public void testBrickWithStringFormula() {
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 		sprite.getActionFactory().createSetBounceFactorAction(sprite, new Formula(String.valueOf(BOUNCE_FACTOR)))
 				.act(1.0f);
 		assertEquals("Unexpected bounce-factor value", BOUNCE_FACTOR / 100.f,
@@ -94,13 +94,13 @@ public class SetBounceFactorActionTest extends PhysicsCollisionBaseTest {
 	}
 
 	public void testNullFormula() {
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 		sprite.getActionFactory().createSetBounceFactorAction(sprite, null).act(1.0f);
 		assertEquals("Unexpected bounce-factor value", 0f, physicsProperties.getBounceFactor());
 	}
 
 	public void testNotANumberFormula() {
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 		sprite.getActionFactory().createSetBounceFactorAction(sprite, new Formula(Double.NaN)).act(1.0f);
 		assertEquals("Unexpected bounce-factor value", PhysicsProperties.DEFAULT_BOUNCE_FACTOR, physicsProperties
 				.getBounceFactor());
@@ -116,18 +116,18 @@ public class SetBounceFactorActionTest extends PhysicsCollisionBaseTest {
 
 	private float bounce(float bounceFactor) {
 		initializeSpritesForCollision();
-		physicsWorld.getPhysicsObject(sprite).setVelocity(0, 0);
-		physicsWorld.getPhysicsObject(sprite).setMass(20);
-		physicsWorld.getPhysicsObject(sprite).setBounceFactor(bounceFactor);
+		sprite.getPhysicsProperties().setVelocity(0, 0);
+		sprite.getPhysicsProperties().setMass(20);
+		sprite.getPhysicsProperties().setBounceFactor(bounceFactor);
 		while (!collisionDetected()) {
 			physicsWorld.step(0.3f);
 		}
 
-		float y = physicsWorld.getPhysicsObject(sprite).getY() + (ScreenValues.SCREEN_HEIGHT / 2);
+		float y = sprite.getPhysicsProperties().getY() + (ScreenValues.SCREEN_HEIGHT / 2);
 		physicsWorld.step(0.3f);
 
-		while (y < (physicsWorld.getPhysicsObject(sprite).getY() + (ScreenValues.SCREEN_HEIGHT / 2))) {
-			y = physicsWorld.getPhysicsObject(sprite).getY() + (ScreenValues.SCREEN_HEIGHT / 2);
+		while (y < (sprite.getPhysicsProperties().getY() + (ScreenValues.SCREEN_HEIGHT / 2))) {
+			y = sprite.getPhysicsProperties().getY() + (ScreenValues.SCREEN_HEIGHT / 2);
 			physicsWorld.step(0.3f);
 		}
 

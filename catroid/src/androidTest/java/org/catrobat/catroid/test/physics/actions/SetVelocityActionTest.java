@@ -36,28 +36,28 @@ public class SetVelocityActionTest extends PhysicsBaseTest {
 
 	public void testNormalBehavior() {
 		initVelocityValue(VELOCITY_X, VELOCITY_Y);
-		assertEquals("Unexpected velocityX value", VELOCITY_X, physicsWorld.getPhysicsObject(sprite).getVelocity().x);
-		assertEquals("Unexpected velocityY value", VELOCITY_Y, physicsWorld.getPhysicsObject(sprite).getVelocity().y);
+		assertEquals("Unexpected velocityX value", VELOCITY_X, sprite.getPhysicsProperties().getVelocity().x);
+		assertEquals("Unexpected velocityY value", VELOCITY_Y, sprite.getPhysicsProperties().getVelocity().y);
 	}
 
 	public void testNegativeValue() {
 		float velocityX = 10.0f;
 		float velocityY = -10.0f;
 		initVelocityValue(velocityX, velocityY);
-		assertEquals("Unexpected velocityX value", velocityX, physicsWorld.getPhysicsObject(sprite).getVelocity().x);
-		assertEquals("Unexpected velocityY value", velocityY, physicsWorld.getPhysicsObject(sprite).getVelocity().y);
+		assertEquals("Unexpected velocityX value", velocityX, sprite.getPhysicsProperties().getVelocity().x);
+		assertEquals("Unexpected velocityY value", velocityY, sprite.getPhysicsProperties().getVelocity().y);
 	}
 
 	public void testZeroValue() {
 		float velocityX = 0.0f;
 		float velocityY = 10.0f;
 		initVelocityValue(velocityX, velocityY);
-		assertEquals("Unexpected velocityX value", velocityX, physicsWorld.getPhysicsObject(sprite).getVelocity().x);
-		assertEquals("Unexpected velocityY value", velocityY, physicsWorld.getPhysicsObject(sprite).getVelocity().y);
+		assertEquals("Unexpected velocityX value", velocityX, sprite.getPhysicsProperties().getVelocity().x);
+		assertEquals("Unexpected velocityY value", velocityY, sprite.getPhysicsProperties().getVelocity().y);
 	}
 
 	private void initVelocityValue(float velocityX, float velocityY) {
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 		Action action = sprite.getActionFactory().createSetVelocityAction(sprite, new Formula(velocityX),
 				new Formula(velocityY));
 		Vector2 velocityVector = physicsProperties.getVelocity();
@@ -69,7 +69,7 @@ public class SetVelocityActionTest extends PhysicsBaseTest {
 	}
 
 	public void testBrickWithStringFormula() {
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 		sprite.getActionFactory().createSetVelocityAction(sprite, new Formula(String.valueOf(VELOCITY_X)),
 				new Formula(String.valueOf(VELOCITY_Y))).act(1.0f);
 		Vector2 velocityVector = physicsProperties.getVelocity();
@@ -86,7 +86,7 @@ public class SetVelocityActionTest extends PhysicsBaseTest {
 	}
 
 	public void testNullFormula() {
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 		sprite.getActionFactory().createSetVelocityAction(sprite, null, null).act(1.0f);
 		Vector2 velocityVector = physicsProperties.getVelocity();
 
@@ -95,7 +95,7 @@ public class SetVelocityActionTest extends PhysicsBaseTest {
 	}
 
 	public void testNotANumberFormula() {
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 		sprite.getActionFactory().createSetVelocityAction(sprite, new Formula(Double.NaN), new Formula(Double.NaN))
 				.act(1.0f);
 		Vector2 velocityVector = physicsProperties.getVelocity();

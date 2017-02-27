@@ -33,11 +33,12 @@ import com.badlogic.gdx.utils.GdxNativesLoader;
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.common.LookData;
+import org.catrobat.catroid.content.Look;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.SingleSprite;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.io.StorageHandler;
-import org.catrobat.catroid.physics.Look;
+import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.physics.PhysicsWorld;
 import org.catrobat.catroid.physics.shapebuilder.PhysicsShapeBuilder;
 import org.catrobat.catroid.test.R;
@@ -96,8 +97,9 @@ public class PhysicsShapeBuilderTest extends InstrumentationTestCase {
 						.getContext(), TestUtils.TYPE_IMAGE_FILE);
 
 		sprite = new SingleSprite("TestSprite");
+		sprite.setPhysicsProperties(new PhysicsProperties(physicsWorld.createBody(), sprite));
 
-		look = new Look(sprite, physicsWorld);
+		look = new Look(sprite);
 	}
 
 	@Override

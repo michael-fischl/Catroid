@@ -59,7 +59,7 @@ public class IfOnEdgeBouncePhysicsActionTest extends PhysicsBaseTest {
 
 		assertTrue("getLookData is null", sprite.look.getLookData() != null);
 
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 		physicsProperties.setType(PhysicsProperties.Type.DYNAMIC);
 
 		float setYValue = -ScreenValues.SCREEN_HEIGHT / 2 + 1; // So that nearly the half of the rectangle should be outside of the screen
@@ -86,7 +86,7 @@ public class IfOnEdgeBouncePhysicsActionTest extends PhysicsBaseTest {
 	public void testVelocityThresholdAtTopCollision() {
 		assertTrue("getLookData is null", sprite.look.getLookData() != null);
 
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 		physicsProperties.setType(PhysicsProperties.Type.DYNAMIC);
 
 		float setYValue = ScreenValues.SCREEN_HEIGHT / 2 - 1; // So that nearly the half of the rectangle should be outside of the screen
@@ -116,7 +116,7 @@ public class IfOnEdgeBouncePhysicsActionTest extends PhysicsBaseTest {
 	public void testSpriteOverlapsRightAndTopAxis() {
 		assertTrue("getLookData is null", sprite.look.getLookData() != null);
 
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 		physicsProperties.setType(PhysicsProperties.Type.DYNAMIC);
 
 		float setXValue = ScreenValues.SCREEN_WIDTH / 2 - sprite.look.getLookData().getPixmap().getWidth() / 4;
@@ -185,7 +185,7 @@ public class IfOnEdgeBouncePhysicsActionTest extends PhysicsBaseTest {
 
 		sprite.createStartScriptActionSequenceAndPutToMap(new HashMap<String, List<String>>());
 
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 		physicsProperties.setType(PhysicsProperties.Type.DYNAMIC);
 
 		float setXValue = ScreenValues.SCREEN_WIDTH / 2 - sprite.look.getLookData().getPixmap().getWidth() / 4;

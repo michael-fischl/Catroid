@@ -39,8 +39,6 @@ import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.physics.shapebuilder.PhysicsShapeBuilder;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class PhysicsWorld {
 	static {
@@ -73,7 +71,6 @@ public class PhysicsWorld {
 
 	public static final int STABILIZING_STEPS = 6;
 	private final World world = new World(PhysicsWorld.DEFAULT_GRAVITY, PhysicsWorld.IGNORE_SLEEPING_OBJECTS);
-	private final Map<Sprite, PhysicsProperties> physicsObjects = new HashMap<Sprite, PhysicsProperties>();
 	private final ArrayList<Sprite> activeVerticalBounces = new ArrayList<Sprite>();
 	private final ArrayList<Sprite> activeHorizontalBounces = new ArrayList<Sprite>();
 	private Box2DDebugRenderer renderer;
@@ -94,17 +91,15 @@ public class PhysicsWorld {
 	}
 
 	public void setBounceOnce(Sprite sprite, PhysicsBoundaryBox.BoundaryBoxIdentifier boundaryBoxIdentifier) {
-		if (physicsObjects.containsKey(sprite)) {
-			PhysicsProperties physicsProperties = physicsObjects.get(sprite);
-			physicsProperties.setIfOnEdgeBounce(true, sprite);
-			switch (boundaryBoxIdentifier) {
-				case BBI_HORIZONTAL:
-					activeHorizontalBounces.add(sprite);
-					break;
-				case BBI_VERTICAL:
-					activeVerticalBounces.add(sprite);
-					break;
-			}
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
+		physicsProperties.setIfOnEdgeBounce(true, sprite);
+		switch (boundaryBoxIdentifier) {
+			case BBI_HORIZONTAL:
+				activeHorizontalBounces.add(sprite);
+				break;
+			case BBI_VERTICAL:
+				activeVerticalBounces.add(sprite);
+				break;
 		}
 	}
 
@@ -147,50 +142,28 @@ public class PhysicsWorld {
 		physicsProperties.setShape(shapes);
 	}
 
-	/*public PhysicsProperties getPhysicsObject(Sprite sprite) {
-		if (sprite == null) {
-			throw new NullPointerException();
-		}
-
-		if (physicsObjects.containsKey(sprite)) {
-			return physicsObjects.get(sprite);
-		}
-
-		PhysicsProperties physicsProperties = createPhysicsObject(sprite);
-		physicsObjects.put(sprite, physicsProperties);
-
-		return physicsProperties;
-	}*/
-
-	/*private PhysicsProperties createPhysicsObject(Sprite sprite) {
-		BodyDef bodyDef = new BodyDef();
-		return new PhysicsProperties(world.createBody(bodyDef), sprite);
-	}*/
 
 	public void bouncedOnEdge(Sprite sprite, PhysicsBoundaryBox.BoundaryBoxIdentifier boundaryBoxIdentifier) {
-		if (physicsObjects.containsKey(sprite)) {
-			PhysicsProperties physicsProperties = physicsObjects.get(sprite);
-			switch (boundaryBoxIdentifier) {
-				case BBI_HORIZONTAL:
-					if (activeHorizontalBounces.remove(sprite) && !activeVerticalBounces.contains(sprite)) {
-						physicsProperties.setIfOnEdgeBounce(false, sprite);
-						PhysicsCollisionBroadcast.fireEvent(PhysicsCollision.generateBroadcastMessage(sprite.getName(),
-								PhysicsCollision.COLLISION_WITH_ANYTHING_IDENTIFIER));
-					}
-					break;
-				case BBI_VERTICAL:
-					if (activeVerticalBounces.remove(sprite) && !activeHorizontalBounces.contains(sprite)) {
-						physicsProperties.setIfOnEdgeBounce(false, sprite);
-						PhysicsCollisionBroadcast.fireEvent(PhysicsCollision.generateBroadcastMessage(sprite.getName(),
-								PhysicsCollision.COLLISION_WITH_ANYTHING_IDENTIFIER));
-					}
-					break;
-			}
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
+		switch (boundaryBoxIdentifier) {
+			case BBI_HORIZONTAL:
+				if (activeHorizontalBounces.remove(sprite) && !activeVerticalBounces.contains(sprite)) {
+					physicsProperties.setIfOnEdgeBounce(false, sprite);
+					PhysicsCollisionBroadcast.fireEvent(PhysicsCollision.generateBroadcastMessage(sprite.getName(),
+							PhysicsCollision.COLLISION_WITH_ANYTHING_IDENTIFIER));
+				}
+				break;
+			case BBI_VERTICAL:
+				if (activeVerticalBounces.remove(sprite) && !activeHorizontalBounces.contains(sprite)) {
+					physicsProperties.setIfOnEdgeBounce(false, sprite);
+					PhysicsCollisionBroadcast.fireEvent(PhysicsCollision.generateBroadcastMessage(sprite.getName(),
+							PhysicsCollision.COLLISION_WITH_ANYTHING_IDENTIFIER));
+				}
+				break;
 		}
 	}
 
-	public Body createBody()
-	{
+	public Body createBody() {
 		BodyDef bodyDef = new BodyDef();
 		return world.createBody(bodyDef);
 	}

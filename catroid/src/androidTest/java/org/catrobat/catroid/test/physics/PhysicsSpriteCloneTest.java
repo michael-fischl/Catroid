@@ -205,13 +205,13 @@ public class PhysicsSpriteCloneTest extends InstrumentationTestCase {
 		assertNotNull("File must not be null.", rectangle125x125File);
 		assertNotNull("Lookdata must not be null.", sprite.look.getLookData());
 
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 
 		Sprite clonedSprite = sprite.clone();
 
 		assertTrue("Look of cloned sprite is no look.", clonedSprite.look instanceof Look);
 
-		PhysicsProperties clonedPhysicsProperties = physicsWorld.getPhysicsObject(clonedSprite);
+		PhysicsProperties clonedPhysicsProperties = clonedSprite.getPhysicsProperties();
 		assertEquals("Cloned Physics Object must be equal.", physicsProperties.getType(), clonedPhysicsProperties.getType());
 		clonedPhysicsProperties.setType(PhysicsProperties.Type.FIXED);
 		assertNotSame("Cloned Physics Object value must be different.", physicsProperties.getType(), clonedPhysicsProperties.getType());

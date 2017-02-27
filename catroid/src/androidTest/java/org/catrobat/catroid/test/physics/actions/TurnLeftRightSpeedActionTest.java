@@ -39,7 +39,7 @@ public class TurnLeftRightSpeedActionTest extends PhysicsBaseTest {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		physicsProperties = sprite.getPhysicsProperties();
 		physicsProperties.setType(PhysicsProperties.Type.DYNAMIC);
 	}
 

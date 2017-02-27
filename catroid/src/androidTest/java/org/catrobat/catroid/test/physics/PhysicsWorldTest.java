@@ -29,8 +29,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
+import org.catrobat.catroid.content.Look;
 import org.catrobat.catroid.content.Sprite;
-import org.catrobat.catroid.physics.Look;
 import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.physics.PhysicsProperties.Type;
 import org.catrobat.catroid.physics.PhysicsWorld;
@@ -47,14 +47,12 @@ public class PhysicsWorldTest extends AndroidTestCase {
 	private static final String TAG = PhysicsObjectTest.class.getSimpleName();
 	private PhysicsWorld physicsWorld;
 	private World world;
-	private Map<Sprite, PhysicsProperties> physicsObjects;
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public void setUp() {
 		physicsWorld = new PhysicsWorld(1920, 1600);
 		world = (World) Reflection.getPrivateField(physicsWorld, "world");
-		physicsObjects = (Map<Sprite, PhysicsProperties>) Reflection.getPrivateField(physicsWorld, "physicsObjects");
 		PhysicsBaseTest.stabilizePhysicsWorld(physicsWorld);
 	}
 
@@ -62,7 +60,6 @@ public class PhysicsWorldTest extends AndroidTestCase {
 	public void tearDown() {
 		physicsWorld = null;
 		world = null;
-		physicsObjects = null;
 	}
 
 	public void testDefaultSettings() {
@@ -100,49 +97,29 @@ public class PhysicsWorldTest extends AndroidTestCase {
 		assertEquals("Did not update gravity", newGravity, world.getGravity());
 	}
 
-	public void testGetNullPhysicsObject() {
-		try {
-			physicsWorld.getPhysicsObject(null);
-			fail("Get physics object of a null sprite didn't cause a null pointer exception");
-		} catch (NullPointerException exception) {
-			Log.d(TAG, "Exception thrown as expected");
-		}
-	}
-
 	public void testGetPhysicsObject() {
 		Sprite sprite = new Sprite("TestSprite");
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		sprite.setPhysicsProperties(new PhysicsProperties(physicsWorld.createBody(), sprite));
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 
 		assertNotNull("No physics object was created", physicsProperties);
-		assertEquals("Wrong number of physics objects were stored", 1, physicsObjects.size());
-		assertTrue("Sprite wasn't saved into physics object map", physicsObjects.containsKey(sprite));
-		assertEquals("Wrong map relation for sprite", physicsProperties, physicsObjects.get(sprite));
-	}
-
-	public void testCreatePhysicsObject() {
-		Object[] values = { new Sprite("testsprite") };
-		ParameterList paramList = new ParameterList(values);
-		PhysicsProperties physicsProperties = (PhysicsProperties) Reflection.invokeMethod(physicsWorld, "createPhysicsObject",
-				paramList);
-
-		assertEquals("Type is not the expected", Type.NONE, physicsProperties.getType());
 	}
 
 	public void testGetSamePhysicsObject() {
 		Sprite sprite = new Sprite("TestSprite");
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
-		PhysicsProperties samePhysicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
+		PhysicsProperties samePhysicsProperties = sprite.getPhysicsProperties();
 
-		assertEquals("Wrong number of physics objects stored", 1, physicsObjects.size());
 		assertEquals("Physics objects are different", physicsProperties, samePhysicsProperties);
 	}
 
 	public void testSteps() throws SecurityException, IllegalArgumentException, NoSuchFieldException,
 			IllegalAccessException {
 		Sprite sprite = new Sprite("TestSprite");
-		sprite.look = new Look(sprite, physicsWorld);
+		sprite.look = new Look(sprite);
+		sprite.setPhysicsProperties(new PhysicsProperties(physicsWorld.createBody(),sprite));
 
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 
 		Vector2 velocity = new Vector2(2.3f, 4.5f);
 		float rotationSpeed = 45.0f;

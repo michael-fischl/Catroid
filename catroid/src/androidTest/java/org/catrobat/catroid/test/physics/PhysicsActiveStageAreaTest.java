@@ -25,8 +25,8 @@ package org.catrobat.catroid.test.physics;
 
 import org.catrobat.catroid.common.LookData;
 import org.catrobat.catroid.content.ActionFactory;
+import org.catrobat.catroid.content.Look;
 import org.catrobat.catroid.content.SingleSprite;
-import org.catrobat.catroid.physics.Look;
 import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.physics.PhysicsWorld;
 import org.catrobat.catroid.test.R;
@@ -45,8 +45,8 @@ public class PhysicsActiveStageAreaTest extends PhysicsBaseTest {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		physicsProperties = physicsWorld.getPhysicsObject(sprite);
-		look = ((Look) sprite.look);
+		physicsProperties = sprite.getPhysicsProperties();
+		look = sprite.look;
 	}
 
 	public void testCircumferenceCalculation() {
@@ -121,16 +121,17 @@ public class PhysicsActiveStageAreaTest extends PhysicsBaseTest {
 				TestUtils.TYPE_IMAGE_FILE);
 
 		sprite = new SingleSprite("TestSprite");
-		sprite.look = new Look(sprite, physicsWorld);
+		sprite.look = new Look(sprite);
 		sprite.setActionFactory(new ActionFactory());
+		sprite.setPhysicsProperties(new PhysicsProperties(physicsWorld.createBody(),sprite));
 		LookData lookdata = PhysicsTestUtils.generateLookData(rectangle8192x8192File);
 		sprite.look.setLookData(lookdata);
 		physicsWorld.step(0.05f);
 		look.updatePhysicsObjectState(true);
 		assertTrue("getLookData is null", sprite.look.getLookData() != null);
 
-		physicsProperties = physicsWorld.getPhysicsObject(sprite);
-		look = ((Look) sprite.look);
+		physicsProperties = sprite.getPhysicsProperties();
+		look = sprite.look;
 		assertTrue("huge physicsProperties is hung up at start", !look.isHangedUp());
 
 		physicsProperties.setX(PhysicsWorld.activeArea.x / 2.0f

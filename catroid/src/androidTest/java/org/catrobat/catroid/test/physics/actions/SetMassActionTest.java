@@ -34,23 +34,23 @@ public class SetMassActionTest extends PhysicsBaseTest {
 
 	public void testNormalBehavior() {
 		initMassValue(MASS);
-		assertEquals("Unexpected mass value", MASS, physicsWorld.getPhysicsObject(sprite).getMass());
+		assertEquals("Unexpected mass value", MASS, sprite.getPhysicsProperties().getMass());
 	}
 
 	public void testNegativeValue() {
 		float mass = -10f;
 		initMassValue(mass);
-		assertEquals("Unexpected mass value", PhysicsProperties.MIN_MASS, physicsWorld.getPhysicsObject(sprite).getMass());
+		assertEquals("Unexpected mass value", PhysicsProperties.MIN_MASS, sprite.getPhysicsProperties().getMass());
 	}
 
 	public void testZeroValue() {
 		float mass = 0f;
 		initMassValue(mass);
-		assertEquals("Unexpected mass value", 0.0f, physicsWorld.getPhysicsObject(sprite).getMass());
+		assertEquals("Unexpected mass value", 0.0f, sprite.getPhysicsProperties().getMass());
 	}
 
 	private void initMassValue(float mass) {
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 		Action action = sprite.getActionFactory().createSetMassAction(sprite, new Formula(mass));
 
 		assertEquals("Unexpected mass value", PhysicsProperties.DEFAULT_MASS, physicsProperties.getMass());
@@ -60,7 +60,7 @@ public class SetMassActionTest extends PhysicsBaseTest {
 	}
 
 	public void testBrickWithStringFormula() {
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 		sprite.getActionFactory().createSetMassAction(sprite, new Formula(String.valueOf(MASS))).act(1.0f);
 		assertEquals("Unexpected mass value", MASS, physicsProperties.getMass());
 
@@ -70,19 +70,19 @@ public class SetMassActionTest extends PhysicsBaseTest {
 	}
 
 	public void testNullFormula() {
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 		sprite.getActionFactory().createSetMassAction(sprite, null).act(1.0f);
 		assertEquals("Unexpected mass value", 0f, physicsProperties.getMass());
 	}
 
 	public void testNotANumberFormula() {
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 		sprite.getActionFactory().createSetMassAction(sprite, new Formula(Double.NaN)).act(1.0f);
 		assertEquals("Unexpected mass value", PhysicsProperties.DEFAULT_MASS, physicsProperties.getMass());
 	}
 
 	public void testMassAcceleration() {
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
 		physicsProperties.setType(PhysicsProperties.Type.DYNAMIC);
 		physicsProperties.setMass(5.0f);
 

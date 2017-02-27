@@ -92,7 +92,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 	}
 
 	public void testDefaultProperties() {
-		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld);
+		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld);
 
 		assertEquals("Wrong initialization", PhysicsProperties.Type.NONE, PhysicsTestUtils.getType(physicsProperties));
 		assertEquals("Wrong initialization", PhysicsProperties.DEFAULT_MASS, PhysicsTestUtils.getMass(physicsProperties));
@@ -110,7 +110,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 	}
 
 	public void testSetShape() {
-		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld);
+		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld);
 		PolygonShape[] rectangle = new PolygonShape[] { PhysicsTestUtils.createRectanglePolygonShape(5.0f, 5.0f) };
 		physicsProperties.setShape(rectangle);
 
@@ -118,7 +118,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 	}
 
 	public void testSetNewShape() {
-		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld);
+		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld);
 		Shape[] shape = new PolygonShape[] { PhysicsTestUtils.createRectanglePolygonShape(5.0f, 5.0f) };
 		physicsProperties.setShape(shape);
 
@@ -131,7 +131,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 	}
 
 	public void testSetSameShape() {
-		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld);
+		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld);
 		Body body = PhysicsTestUtils.getBody(physicsProperties);
 
 		Shape[] rectangle = new Shape[] { PhysicsTestUtils.createRectanglePolygonShape(5.0f, 5.0f) };
@@ -146,7 +146,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 	}
 
 	public void testSetNullShapeRemovesAllFixtures() {
-		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld);
+		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld);
 		Body body = PhysicsTestUtils.getBody(physicsProperties);
 
 		physicsProperties.setShape(new Shape[] { PhysicsTestUtils.createRectanglePolygonShape(5.0f, 5.0f) });
@@ -158,7 +158,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 	}
 
 	public void testSetShapeUpdatesDensityButNotMass() {
-		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld);
+		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld);
 		physicsProperties.setShape(new Shape[] { PhysicsTestUtils.createRectanglePolygonShape(5.0f, 5.0f) });
 		Body body = PhysicsTestUtils.getBody(physicsProperties);
 
@@ -172,7 +172,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 	}
 
 	public void testSetType() {
-		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld);
+		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld);
 		Body body = PhysicsTestUtils.getBody(physicsProperties);
 
 		physicsProperties.setType(PhysicsProperties.Type.FIXED);
@@ -189,7 +189,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 	}
 
 	public void testSetCollisionBits() {
-		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld, PhysicsProperties.Type.NONE,
+		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld, PhysicsProperties.Type.NONE,
 				10.0f, 5.0f);
 		checkCollisionMask(physicsProperties, PhysicsWorld.CATEGORY_PHYSICSOBJECT, PhysicsWorld.MASK_NO_COLLISION);
 
@@ -204,7 +204,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 	}
 
 	public void testSetTypeToDynamicUpdatesMass() {
-		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld, PhysicsProperties.Type.NONE);
+		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld, PhysicsProperties.Type.NONE);
 		Body body = PhysicsTestUtils.getBody(physicsProperties);
 
 		float rectangleSize = 10.0f;
@@ -221,7 +221,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 
 	public void testAngle() {
 		for (PhysicsProperties.Type type : PhysicsProperties.Type.values()) {
-			PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld, type);
+			PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld, type);
 			assertEquals("Wrong initialization", 0.0f, PhysicsTestUtils.getBody(physicsProperties).getAngle());
 
 			float[] angles = { 45.0f, 1.0f, 131.4f, -10.0f, -180.0f };
@@ -234,7 +234,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 
 	public void testPosition() {
 		for (PhysicsProperties.Type type : PhysicsProperties.Type.values()) {
-			PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld, type);
+			PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld, type);
 			assertEquals("Wrong initialization", new Vector2(), PhysicsTestUtils.getBody(physicsProperties).getPosition());
 
 			Vector2[] positions = { new Vector2(12.34f, 56.78f), new Vector2(-87.65f, -43.21f) };
@@ -260,7 +260,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 
 	public void testAngleAndPosition() {
 		for (PhysicsProperties.Type type : PhysicsProperties.Type.values()) {
-			PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld, type);
+			PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld, type);
 			assertEquals("Wrong initialization", 0.0f, PhysicsTestUtils.getBody(physicsProperties).getAngle());
 			assertEquals("initialization", new Vector2(), PhysicsTestUtils.getBody(physicsProperties).getPosition());
 
@@ -282,7 +282,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 
 	public void testSetDensity() {
 		for (PhysicsProperties.Type type : PhysicsProperties.Type.values()) {
-			PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld, type);
+			PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld, type);
 			physicsProperties.setShape(new Shape[] { new PolygonShape(), new PolygonShape() });
 
 			float[] densityValues = { 0.123f, -0.765f, 24.32f };
@@ -312,7 +312,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 	}
 
 	public void testSetDensityUpdatesMassData() {
-		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld, PhysicsProperties.Type.DYNAMIC,
+		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld, PhysicsProperties.Type.DYNAMIC,
 				5.0f, 5.0f);
 		Body body = PhysicsTestUtils.getBody(physicsProperties);
 
@@ -328,7 +328,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 	}
 
 	public void testSetDensityAtMassChange() {
-		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld, PhysicsProperties.Type.DYNAMIC);
+		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld, PhysicsProperties.Type.DYNAMIC);
 		Body body = PhysicsTestUtils.getBody(physicsProperties);
 
 		float rectangleSize = 24.0f;
@@ -346,7 +346,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 
 	public void testSetFriction() {
 		for (PhysicsProperties.Type type : PhysicsProperties.Type.values()) {
-			PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld, type);
+			PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld, type);
 			physicsProperties.setShape(new Shape[] { new PolygonShape(), new PolygonShape() });
 			float[] frictionValues = { 0.123f, -0.765f, 0.32f };
 
@@ -374,7 +374,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 
 	public void testSetBounceFactor() {
 		for (PhysicsProperties.Type type : PhysicsProperties.Type.values()) {
-			PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld, type);
+			PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld, type);
 			physicsProperties.setShape(new Shape[] { new PolygonShape(), new PolygonShape() });
 			float[] bounceFactors = { 0.123f, -0.765f, 0.32f };
 
@@ -402,7 +402,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 
 	public void testMass() {
 		for (PhysicsProperties.Type type : PhysicsProperties.Type.values()) {
-			PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld, type, 5.0f, 5.0f);
+			PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld, type, 5.0f, 5.0f);
 			Body body = PhysicsTestUtils.getBody(physicsProperties);
 
 			checkBodyMassDependingOnType(type, body, PhysicsProperties.DEFAULT_MASS);
@@ -440,11 +440,11 @@ public class PhysicsObjectTest extends AndroidTestCase {
 	}
 
 	public void testMassWithNoShapeArea() {
-		PhysicsProperties[] physicsProperties = {
-				PhysicsTestUtils.createPhysicsObject(physicsWorld, PhysicsProperties.Type.DYNAMIC),
-				PhysicsTestUtils.createPhysicsObject(physicsWorld, PhysicsProperties.Type.DYNAMIC, 0.0f, 0.0f) };
+		PhysicsProperties[] physicsPropertiesList = {
+				PhysicsTestUtils.createPhysicsProperties(physicsWorld, PhysicsProperties.Type.DYNAMIC),
+				PhysicsTestUtils.createPhysicsProperties(physicsWorld, PhysicsProperties.Type.DYNAMIC, 0.0f, 0.0f) };
 
-		for (PhysicsProperties physicsProperties : physicsProperties) {
+		for (PhysicsProperties physicsProperties : physicsPropertiesList) {
 			Body body = PhysicsTestUtils.getBody(physicsProperties);
 
 			float oldMass = body.getMass();
@@ -458,7 +458,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 	}
 
 	public void testSetRotationSpeed() {
-		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld, PhysicsProperties.Type.DYNAMIC);
+		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld, PhysicsProperties.Type.DYNAMIC);
 		Body body = PhysicsTestUtils.getBody(physicsProperties);
 
 		assertEquals("Wrong initialization", 0.0f, body.getAngularVelocity());
@@ -469,7 +469,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 	}
 
 	public void testSetVelocity() {
-		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld, PhysicsProperties.Type.DYNAMIC);
+		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld, PhysicsProperties.Type.DYNAMIC);
 		Body body = PhysicsTestUtils.getBody(physicsProperties);
 
 		assertEquals("Wrong initialization", new Vector2(), body.getLinearVelocity());
@@ -481,7 +481,7 @@ public class PhysicsObjectTest extends AndroidTestCase {
 	}
 
 	public void testIfOnEndgeBounce() {
-		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsObject(physicsWorld, PhysicsProperties.Type.DYNAMIC,
+		PhysicsProperties physicsProperties = PhysicsTestUtils.createPhysicsProperties(physicsWorld, PhysicsProperties.Type.DYNAMIC,
 				1.0f, 1.0f);
 		Sprite sprite = new SingleSprite("TestSprite");
 		physicsProperties.setIfOnEdgeBounce(true, sprite);

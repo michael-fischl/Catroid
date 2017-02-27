@@ -27,10 +27,10 @@ import android.test.AndroidTestCase;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
 import org.catrobat.catroid.content.ActionFactory;
+import org.catrobat.catroid.content.Look;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.bricks.PointInDirectionBrick.Direction;
 import org.catrobat.catroid.formulaeditor.Formula;
-import org.catrobat.catroid.physics.Look;
 import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.physics.PhysicsWorld;
 
@@ -85,8 +85,8 @@ public class SetRotationStyleActionTest extends AndroidTestCase {
 	//Right is Left, Left is Right, Up is Up and Down is Down
 
 	public void testNormalModeInPhysics() {
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
-		Look look = new Look(sprite, physicsWorld);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
+		Look look = new Look(sprite);
 
 		look.setRotationMode(org.catrobat.catroid.content.Look.ROTATION_STYLE_ALL_AROUND);
 
@@ -108,8 +108,8 @@ public class SetRotationStyleActionTest extends AndroidTestCase {
 	}
 
 	public void testNoModeInPhysics() {
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
-		Look look = new Look(sprite, physicsWorld);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
+		Look look = new Look(sprite);
 
 		look.setRotationMode(org.catrobat.catroid.content.Look.ROTATION_STYLE_NONE);
 
@@ -131,8 +131,8 @@ public class SetRotationStyleActionTest extends AndroidTestCase {
 	}
 
 	public void testLRModeInPhysics() {
-		PhysicsProperties physicsProperties = physicsWorld.getPhysicsObject(sprite);
-		Look look = new Look(sprite, physicsWorld);
+		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
+		Look look = new Look(sprite);
 
 		look.setRotationMode(org.catrobat.catroid.content.Look.ROTATION_STYLE_LEFT_RIGHT_ONLY);
 
