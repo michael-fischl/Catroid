@@ -33,15 +33,13 @@ import org.catrobat.catroid.test.utils.TestUtils;
 
 public class SetSizeToActionTest extends PhysicsBaseTest {
 
-	private Look look;
 	private PhysicsProperties physicsProperties;
 	public static final float SIZE_COMPARISON_DELTA = 1.0f;
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		this.look = (Look) sprite.look;
-		this.physicsProperties = (PhysicsProperties) Reflection.getPrivateField(look, "physicsProperties");
+		this.physicsProperties = sprite.getPhysicsProperties();
 	}
 
 	public void testSizeLarger() {

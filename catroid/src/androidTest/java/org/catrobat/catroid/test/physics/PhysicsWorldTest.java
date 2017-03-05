@@ -120,6 +120,7 @@ public class PhysicsWorldTest extends AndroidTestCase {
 		sprite.setPhysicsProperties(new PhysicsProperties(physicsWorld.createBody(),sprite));
 
 		PhysicsProperties physicsProperties = sprite.getPhysicsProperties();
+		physicsProperties.setType(Type.NONE);
 
 		Vector2 velocity = new Vector2(2.3f, 4.5f);
 		float rotationSpeed = 45.0f;

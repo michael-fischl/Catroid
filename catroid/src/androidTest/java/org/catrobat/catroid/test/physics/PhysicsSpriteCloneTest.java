@@ -26,6 +26,7 @@ import android.test.InstrumentationTestCase;
 import android.util.Log;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.common.LookData;
@@ -138,6 +139,10 @@ public class PhysicsSpriteCloneTest extends InstrumentationTestCase {
 		collisionScript.addBrick(turnLeftSpeedBrick);
 		collisionScript.addBrick(turnRightSpeedBrick);
 
+		PhysicsWorld physicsWorld = project.getDefaultScene().getPhysicsWorld();
+		sprite.setPhysicsProperties(new PhysicsProperties(physicsWorld.createBody(), sprite));
+		sprite.getPhysicsProperties().setType(PhysicsProperties.Type.NONE);
+
 		sprite.addScript(collisionScript);
 
 		Sprite clonedSprite = sprite.clone();
@@ -149,6 +154,10 @@ public class PhysicsSpriteCloneTest extends InstrumentationTestCase {
 		CollisionScript collisionScript = new CollisionScript(COLLISION_RECEIVER_TEST_MESSAGE);
 		collisionScript.getScriptBrick();
 		Brick setBounceBrick = new SetBounceBrick(BOUNCE_TEST_VALUE);
+
+		PhysicsWorld physicsWorld = project.getDefaultScene().getPhysicsWorld();
+		sprite.setPhysicsProperties(new PhysicsProperties(physicsWorld.createBody(), sprite));
+		sprite.getPhysicsProperties().setType(PhysicsProperties.Type.NONE);
 
 		collisionScript.addBrick(setBounceBrick);
 		sprite.addScript(collisionScript);
@@ -189,6 +198,8 @@ public class PhysicsSpriteCloneTest extends InstrumentationTestCase {
 
 		PhysicsWorld physicsWorld = project.getDefaultScene().getPhysicsWorld();
 		sprite.look = new Look(sprite);
+		sprite.setPhysicsProperties(new PhysicsProperties(physicsWorld.createBody(), sprite));
+		sprite.getPhysicsProperties().setType(PhysicsProperties.Type.NONE);
 
 		String rectangle125x125FileName = PhysicsTestUtils.getInternalImageFilenameFromFilename("rectangle_125x125.png");
 		File rectangle125x125File = null;

@@ -452,4 +452,6 @@ public class PhysicsProperties {
 		bodyAabbUpperRight.x = Math.max(fixtureAabbUpperRight.x, bodyAabbUpperRight.x);
 		bodyAabbUpperRight.y = Math.max(fixtureAabbUpperRight.y, bodyAabbUpperRight.y);
 	}
+
+
 }

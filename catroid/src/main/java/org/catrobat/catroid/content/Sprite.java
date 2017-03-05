@@ -54,6 +54,7 @@ import org.catrobat.catroid.formulaeditor.UserList;
 import org.catrobat.catroid.formulaeditor.UserVariable;
 import org.catrobat.catroid.io.XStreamFieldKeyOrder;
 import org.catrobat.catroid.physics.PhysicsProperties;
+import org.catrobat.catroid.physics.PhysicsWorld;
 import org.catrobat.catroid.stage.StageActivity;
 import org.catrobat.catroid.ui.fragment.SpriteFactory;
 
@@ -326,6 +327,10 @@ public class Sprite implements Serializable, Cloneable {
 
 		Sprite originalSprite = projectManager.getCurrentSprite();
 		projectManager.setCurrentSprite(cloneSprite);
+
+		PhysicsWorld world = ProjectManager.getInstance().getCurrentProject().getDefaultScene().getPhysicsWorld();
+		cloneSprite.setPhysicsProperties(new PhysicsProperties(world.createBody(), cloneSprite));
+		cloneSprite.getPhysicsProperties().setType(this.getPhysicsProperties().getType());
 
 		cloneSpriteVariables(currentScene, cloneSprite);
 		cloneLooks(cloneSprite);
