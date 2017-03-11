@@ -212,7 +212,7 @@ public class StageListener implements ApplicationListener {
 		initScreenMode();
 		initStageInputListener();
 
-		physicsWorld = scene.resetPhysicsWorld();
+		physicsWorld = scene.getPhysicsWorld();
 
 		clonedSprites = new HashSet<>();
 		sprites = new ArrayList<>(scene.getSpriteList());
@@ -226,8 +226,6 @@ public class StageListener implements ApplicationListener {
 				stage.addActor(penActor);
 				addPenActor = false;
 			}
-			sprite.setPhysicsProperties(new PhysicsProperties(physicsWorld.createBody(), sprite));
-			sprite.getPhysicsProperties().setType(PhysicsProperties.Type.NONE);
 		}
 		passepartout = new Passepartout(ScreenValues.SCREEN_WIDTH, ScreenValues.SCREEN_HEIGHT, maximizeViewPortWidth,
 				maximizeViewPortHeight, virtualWidth, virtualHeight);

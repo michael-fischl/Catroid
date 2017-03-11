@@ -58,7 +58,7 @@ public class PhysicsProperties {
 	private short collisionMaskRecord = 0;
 	private short categoryMaskRecord = PhysicsWorld.CATEGORY_PHYSICSOBJECT;
 
-	private final Body body;
+	private Body body;
 	private final FixtureDef fixtureDef = new FixtureDef();
 	private Shape[] shapes;
 	private Type type;
@@ -453,5 +453,9 @@ public class PhysicsProperties {
 		bodyAabbUpperRight.y = Math.max(fixtureAabbUpperRight.y, bodyAabbUpperRight.y);
 	}
 
+	public void setBody(Body body) {
+		this.body = body;
+		this.body.setUserData(this);
+	}
 
 }

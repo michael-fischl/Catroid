@@ -77,7 +77,7 @@ public class Sprite implements Serializable, Cloneable {
 	private static final long serialVersionUID = 1L;
 	private static final String TAG = Sprite.class.getSimpleName();
 
-	private static SpriteFactory spriteFactory = new SpriteFactory();
+	public static SpriteFactory spriteFactory = new SpriteFactory();
 
 	public transient org.catrobat.catroid.content.Look look = new org.catrobat.catroid.content.Look(this);
 	public transient boolean isBackpackObject = false;
