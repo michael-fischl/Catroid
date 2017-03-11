@@ -29,8 +29,9 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import org.catrobat.catroid.content.SingleSprite;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.formulaeditor.Formula;
+import org.catrobat.catroid.test.BaseTest;
 
-public class ChangeXByNActionTest extends AndroidTestCase {
+public class ChangeXByNActionTest extends BaseTest {
 
 	private static final float CHANGE_VALUE = 55.5f;
 	private static final String NOT_NUMERICAL_STRING = "xPosition";
@@ -38,8 +39,8 @@ public class ChangeXByNActionTest extends AndroidTestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		sprite = new SingleSprite("testSprite");
 		super.setUp();
+		sprite = createSprite("testSprite");
 	}
 
 	public void testNormalBehavior() {

@@ -32,12 +32,13 @@ import org.catrobat.catroid.content.Look;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.SingleSprite;
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.test.BaseTest;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class IfOnEdgeBounceActionTest extends InstrumentationTestCase {
+public class IfOnEdgeBounceActionTest extends BaseTest {
 
 	private Action ifOnEdgeBounceAction;
 	private Sprite sprite;
@@ -59,7 +60,8 @@ public class IfOnEdgeBounceActionTest extends InstrumentationTestCase {
 
 	@Override
 	public void setUp() throws Exception {
-		sprite = new SingleSprite("Test");
+		super.setUp();
+		sprite = createSprite("Test");
 		sprite.look.setWidth(WIDTH);
 		sprite.look.setHeight(HEIGHT);
 		sprite.look.setPositionInUserInterfaceDimensionUnit(0, 0);

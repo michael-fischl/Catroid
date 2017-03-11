@@ -30,11 +30,12 @@ import org.catrobat.catroid.content.StartScript;
 import org.catrobat.catroid.content.bricks.ChangeYByNBrick;
 import org.catrobat.catroid.content.bricks.ForeverBrick;
 import org.catrobat.catroid.content.bricks.LoopEndBrick;
+import org.catrobat.catroid.test.BaseTest;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class ForeverActionTest extends InstrumentationTestCase {
+public class ForeverActionTest extends BaseTest {
 
 	private static final int REPEAT_TIMES = 4;
 	private final float delta = 0.005f;
@@ -42,7 +43,7 @@ public class ForeverActionTest extends InstrumentationTestCase {
 	public void testLoopDelay() throws InterruptedException {
 		final int deltaY = -10;
 
-		Sprite testSprite = new SingleSprite("testSprite");
+		Sprite testSprite = createSprite("testSprite");
 		StartScript testScript = new StartScript();
 
 		ForeverBrick foreverBrick = new ForeverBrick();

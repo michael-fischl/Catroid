@@ -31,8 +31,9 @@ import org.catrobat.catroid.common.BrickValues;
 import org.catrobat.catroid.content.ActionFactory;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.actions.GoToRandomPositionAction;
+import org.catrobat.catroid.test.BaseTest;
 
-public class GoToRandomPositionActionTest extends AndroidTestCase {
+public class GoToRandomPositionActionTest extends BaseTest {
 
 	private Sprite sprite;
 	private Sprite dummySprite;
@@ -40,11 +41,11 @@ public class GoToRandomPositionActionTest extends AndroidTestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		sprite = new Sprite("testSprite");
-		dummySprite = new Sprite("dummySprite");
+		super.setUp();
+		sprite = createSprite("testSprite");
+		dummySprite = createSprite("dummySprite");
 		action = (GoToRandomPositionAction) sprite.getActionFactory().createGoToAction(
 				sprite, dummySprite, BrickValues.GO_TO_RANDOM_POSITION);
-		super.setUp();
 	}
 
 	public void testGoToOtherSpriteAction() throws InterruptedException {

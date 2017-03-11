@@ -29,8 +29,9 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import org.catrobat.catroid.content.SingleSprite;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.formulaeditor.Formula;
+import org.catrobat.catroid.test.BaseTest;
 
-public class ChangeTransparencyByNActionTest extends AndroidTestCase {
+public class ChangeTransparencyByNActionTest extends BaseTest {
 
 	private static final float DELTA = 0.01f;
 	private static final float INCREASE_VALUE = 98.7f;
@@ -40,8 +41,8 @@ public class ChangeTransparencyByNActionTest extends AndroidTestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		sprite = new SingleSprite("testSprite");
 		super.setUp();
+		sprite = createSprite("testSprite");
 	}
 
 	public void testNormalBehavior() {
