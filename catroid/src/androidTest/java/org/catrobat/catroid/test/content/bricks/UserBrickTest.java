@@ -26,6 +26,7 @@ import android.test.AndroidTestCase;
 import android.util.Log;
 
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.badlogic.gdx.utils.compression.lzma.Base;
 
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.content.Project;
@@ -43,13 +44,14 @@ import org.catrobat.catroid.formulaeditor.Formula;
 import org.catrobat.catroid.formulaeditor.FormulaElement;
 import org.catrobat.catroid.formulaeditor.FormulaElement.ElementType;
 import org.catrobat.catroid.formulaeditor.InterpretationException;
+import org.catrobat.catroid.test.BaseTest;
 import org.catrobat.catroid.test.utils.Reflection;
 import org.catrobat.catroid.test.utils.TestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserBrickTest extends AndroidTestCase {
+public class UserBrickTest extends BaseTest {
 	private static final String TAG = UserBrickTest.class.getSimpleName();
 
 	private Sprite sprite;
@@ -57,7 +59,7 @@ public class UserBrickTest extends AndroidTestCase {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		sprite = new SingleSprite("testSprite");
+		sprite = createSprite("testSprite");
 		Project project = new Project(null, "testProject");
 
 		project.getDefaultScene().addSprite(sprite);

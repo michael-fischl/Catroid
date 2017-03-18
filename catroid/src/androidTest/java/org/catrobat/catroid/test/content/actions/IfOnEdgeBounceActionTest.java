@@ -32,6 +32,7 @@ import org.catrobat.catroid.content.Look;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.SingleSprite;
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.test.BaseTest;
 
 import java.util.HashMap;
@@ -62,18 +63,19 @@ public class IfOnEdgeBounceActionTest extends BaseTest {
 	public void setUp() throws Exception {
 		super.setUp();
 		sprite = createSprite("Test");
+		sprite.getPhysicsProperties().setType(PhysicsProperties.Type.NONE);
 		sprite.look.setWidth(WIDTH);
 		sprite.look.setHeight(HEIGHT);
 		sprite.look.setPositionInUserInterfaceDimensionUnit(0, 0);
-
-		ActionFactory factory = sprite.getActionFactory();
-		ifOnEdgeBounceAction = factory.createIfOnEdgeBounceAction(sprite);
 
 		Project project = new Project(null, "Test", false);
 		project.getXmlHeader().virtualScreenWidth = SCREEN_WIDTH;
 		project.getXmlHeader().virtualScreenHeight = SCREEN_HEIGHT;
 
 		ProjectManager.getInstance().setProject(project);
+
+		ActionFactory factory = sprite.getActionFactory();
+		ifOnEdgeBounceAction = factory.createIfOnEdgeBounceAction(sprite);
 	}
 
 	public void testNoBounce() {

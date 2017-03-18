@@ -90,6 +90,7 @@ public class Scene implements Serializable {
 		sceneName = name;
 		dataContainer = new DataContainer(project);
 		this.project = project;
+		ProjectManager.getInstance().setCurrentScene(this);
 
 		if (project != null) {
 			originalWidth = project.getXmlHeader().virtualScreenWidth;
