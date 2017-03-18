@@ -29,8 +29,9 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import org.catrobat.catroid.content.SingleSprite;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.formulaeditor.Formula;
+import org.catrobat.catroid.test.BaseInstrumentationTest;
 
-public class SetTransparencyActionTest extends InstrumentationTestCase {
+public class SetTransparencyActionTest extends BaseInstrumentationTest {
 
 	private static final float TRANSPARENCY = 91f;
 	private Formula effect = new Formula(TRANSPARENCY);
@@ -39,8 +40,8 @@ public class SetTransparencyActionTest extends InstrumentationTestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		sprite = new SingleSprite("testSprite");
 		super.setUp();
+		sprite = createSprite("testSprite");
 	}
 
 	public void testTransparency() {

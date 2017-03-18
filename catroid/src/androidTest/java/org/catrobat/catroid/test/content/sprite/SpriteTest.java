@@ -47,13 +47,14 @@ import org.catrobat.catroid.formulaeditor.FormulaElement;
 import org.catrobat.catroid.formulaeditor.FormulaElement.ElementType;
 import org.catrobat.catroid.formulaeditor.InterpretationException;
 import org.catrobat.catroid.formulaeditor.UserVariable;
+import org.catrobat.catroid.test.BaseTest;
 import org.catrobat.catroid.test.utils.TestUtils;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class SpriteTest extends AndroidTestCase {
+public class SpriteTest extends BaseTest {
 
 	private static final String LOCAL_VARIABLE_NAME = "test_local";
 	private static final double LOCAL_VARIABLE_VALUE = 0xDEADBEEF;
@@ -69,7 +70,7 @@ public class SpriteTest extends AndroidTestCase {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		sprite = new SingleSprite("testSprite");
+		sprite = createSprite("testSprite");
 		project = new Project(getContext(), TestUtils.DEFAULT_TEST_PROJECT_NAME);
 		project.getDefaultScene().addSprite(sprite);
 		project.getDefaultScene().getDataContainer().addSpriteUserVariableToSprite(sprite, LOCAL_VARIABLE_NAME);
@@ -82,7 +83,6 @@ public class SpriteTest extends AndroidTestCase {
 	}
 
 	public void testAddScript() {
-		Sprite sprite = new SingleSprite("new SingleSprite");
 		Script firstScript = new StartScript();
 		Script secondScript = new StartScript();
 		sprite.addScript(firstScript);
@@ -99,7 +99,6 @@ public class SpriteTest extends AndroidTestCase {
 	}
 
 	public void testGetScript() {
-		Sprite sprite = new SingleSprite("new SingleSprite");
 		Script firstScript = new StartScript();
 		Script secondScript = new StartScript();
 		sprite.addScript(firstScript);
@@ -109,7 +108,6 @@ public class SpriteTest extends AndroidTestCase {
 	}
 
 	public void testRemoveAllScripts() {
-		Sprite sprite = new SingleSprite("new SingleSprite");
 		Script firstScript = new StartScript();
 		Script secondScript = new StartScript();
 		sprite.addScript(firstScript);
@@ -121,7 +119,6 @@ public class SpriteTest extends AndroidTestCase {
 	}
 
 	public void testRemoveScript() {
-		Sprite sprite = new SingleSprite("new SingleSprite");
 		Script firstScript = new StartScript();
 		Script secondScript = new StartScript();
 		sprite.addScript(firstScript);
@@ -134,7 +131,6 @@ public class SpriteTest extends AndroidTestCase {
 	}
 
 	public void testGetScriptIndex() {
-		Sprite sprite = new SingleSprite("new SingleSprite");
 		Script firstScript = new StartScript();
 		Script secondScript = new StartScript();
 		sprite.addScript(firstScript);
@@ -242,7 +238,7 @@ public class SpriteTest extends AndroidTestCase {
 		sprite.addScript(script);
 
 		Scene secondScene = new Scene(getContext(), "scene 2", project);
-		Sprite sprite2 = new SingleSprite("testSprite2");
+		Sprite sprite2 = createSprite("testSprite2");
 		Script secondScript = new StartScript();
 		Brick textBrick = new ShowTextBrick(10, 10);
 		secondScript.addBrick(textBrick);

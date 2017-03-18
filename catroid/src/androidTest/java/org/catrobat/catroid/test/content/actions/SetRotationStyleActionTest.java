@@ -33,17 +33,16 @@ import org.catrobat.catroid.content.bricks.PointInDirectionBrick.Direction;
 import org.catrobat.catroid.formulaeditor.Formula;
 import org.catrobat.catroid.physics.PhysicsProperties;
 import org.catrobat.catroid.physics.PhysicsWorld;
+import org.catrobat.catroid.test.BaseTest;
 
-public class SetRotationStyleActionTest extends AndroidTestCase {
+public class SetRotationStyleActionTest extends BaseTest {
 
 	private Sprite sprite;
-	private PhysicsWorld physicsWorld;
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		sprite = new Sprite("testSprite");
-		physicsWorld = new PhysicsWorld(1920, 1600);
+		sprite = createSprite("testSprite");
 	}
 
 	public void testNormalMode() {

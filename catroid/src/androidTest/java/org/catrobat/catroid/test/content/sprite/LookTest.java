@@ -36,12 +36,13 @@ import org.catrobat.catroid.content.Look;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.SingleSprite;
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.test.BaseInstrumentationTest;
 import org.catrobat.catroid.test.utils.Reflection;
 import org.catrobat.catroid.test.utils.Reflection.ParameterList;
 import org.catrobat.catroid.test.utils.TestUtils;
 import org.catrobat.catroid.utils.TouchUtil;
 
-public class LookTest extends InstrumentationTestCase {
+public class LookTest extends BaseInstrumentationTest {
 	private Look look;
 	private Sprite sprite;
 	private Group parentGroup;
@@ -51,9 +52,10 @@ public class LookTest extends InstrumentationTestCase {
 	private float height = 16;
 
 	@Override
-	protected void setUp() {
+	protected void setUp() throws Exception {
+		super.setUp();
 		parentGroup = new Group();
-		sprite = new SingleSprite("test");
+		sprite = createSprite("test");
 		parentGroup.addActor(sprite.look);
 		look = sprite.look;
 	}

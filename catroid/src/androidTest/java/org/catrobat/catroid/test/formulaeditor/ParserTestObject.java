@@ -37,12 +37,13 @@ import org.catrobat.catroid.formulaeditor.InternToken;
 import org.catrobat.catroid.formulaeditor.InternTokenType;
 import org.catrobat.catroid.formulaeditor.InterpretationException;
 import org.catrobat.catroid.formulaeditor.Sensors;
+import org.catrobat.catroid.test.BaseTest;
 import org.catrobat.catroid.test.utils.TestUtils;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class ParserTestObject extends AndroidTestCase {
+public class ParserTestObject extends BaseTest {
 
 	private static final float LOOK_ALPHA = 0.42f;
 	private static final float LOOK_Y_POSITION = 23.4f;
@@ -55,10 +56,11 @@ public class ParserTestObject extends AndroidTestCase {
 	private Sprite testSprite;
 
 	@Override
-	protected void setUp() {
+	protected void setUp() throws Exception {
+		super.setUp();
 		Project project = new Project(null, TestUtils.DEFAULT_TEST_PROJECT_NAME);
 		ProjectManager.getInstance().setProject(project);
-		testSprite = new SingleSprite("sprite");
+		testSprite = createSprite("sprite");
 		ProjectManager.getInstance().setCurrentSprite(testSprite);
 		testSprite.look.setXInUserInterfaceDimensionUnit(LOOK_X_POSITION);
 		testSprite.look.setYInUserInterfaceDimensionUnit(LOOK_Y_POSITION);

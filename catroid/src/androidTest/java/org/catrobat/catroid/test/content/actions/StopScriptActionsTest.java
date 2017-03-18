@@ -40,18 +40,20 @@ import org.catrobat.catroid.content.bricks.WaitBrick;
 import org.catrobat.catroid.formulaeditor.Formula;
 import org.catrobat.catroid.formulaeditor.UserVariable;
 import org.catrobat.catroid.io.StorageHandler;
+import org.catrobat.catroid.test.BaseInstrumentationTest;
 import org.catrobat.catroid.test.utils.TestUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-public class StopScriptActionsTest extends InstrumentationTestCase {
+public class StopScriptActionsTest extends BaseInstrumentationTest {
 
 	private Project project;
 
 	@Override
 	protected void setUp() throws Exception {
+		super.setUp();
 		TestUtils.deleteTestProjects();
 		this.createProject();
 	}
@@ -63,7 +65,7 @@ public class StopScriptActionsTest extends InstrumentationTestCase {
 	}
 
 	public void testStopScript() {
-		Sprite sprite = new Sprite("sprite");
+		Sprite sprite = createSprite("sprite");
 		StartScript script = new StartScript();
 
 		sprite.look.setX(1);
@@ -89,7 +91,7 @@ public class StopScriptActionsTest extends InstrumentationTestCase {
 		String variableName = "testVariable";
 		project.getDefaultScene().getDataContainer().addProjectUserVariable(variableName);
 		UserVariable userVariable = project.getDefaultScene().getDataContainer().getUserVariable(variableName, null);
-		Sprite sprite = new Sprite("sprite");
+		Sprite sprite = createSprite("sprite");
 
 		Script script = new StartScript();
 		script.addBrick(new SetVariableBrick(new Formula(10), userVariable));
@@ -129,7 +131,7 @@ public class StopScriptActionsTest extends InstrumentationTestCase {
 		project.getDefaultScene().getDataContainer().addProjectUserVariable(varName);
 		UserVariable userVar = project.getDefaultScene().getDataContainer().getUserVariable(varName, null);
 
-		Sprite sprite = new Sprite("sprite");
+		Sprite sprite = createSprite("sprite");
 		Script script = new StartScript();
 
 		script.addBrick(new SetVariableBrick(new Formula(1), userVar));

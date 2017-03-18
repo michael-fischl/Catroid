@@ -32,11 +32,12 @@ import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.io.StorageHandler;
 import org.catrobat.catroid.sensing.CollisionDetection;
+import org.catrobat.catroid.test.BaseInstrumentationTest;
 import org.catrobat.catroid.test.utils.CollisionTestUtils;
 import org.catrobat.catroid.test.utils.TestUtils;
 import org.catrobat.catroid.utils.TouchUtil;
 
-public class TouchesFingerTest extends InstrumentationTestCase {
+public class TouchesFingerTest extends BaseInstrumentationTest {
 	protected Project project;
 	protected Sprite sprite1;
 
@@ -46,7 +47,7 @@ public class TouchesFingerTest extends InstrumentationTestCase {
 		TestUtils.deleteTestProjects();
 
 		project = new Project(getInstrumentation().getTargetContext(), TestUtils.DEFAULT_TEST_PROJECT_NAME);
-		sprite1 = new Sprite("TestSprite1");
+		sprite1 = createSprite("TestSprite1");
 		project.getDefaultScene().addSprite(sprite1);
 
 		StorageHandler.getInstance().saveProject(project);

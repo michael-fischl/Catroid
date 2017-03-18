@@ -35,6 +35,7 @@ import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.SingleSprite;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.io.StorageHandler;
+import org.catrobat.catroid.test.BaseInstrumentationTest;
 import org.catrobat.catroid.test.R;
 import org.catrobat.catroid.test.utils.TestUtils;
 import org.catrobat.catroid.uitest.util.UiTestUtils;
@@ -42,7 +43,7 @@ import org.catrobat.catroid.utils.UtilFile;
 
 import java.io.File;
 
-public class NextLookActionTest extends InstrumentationTestCase {
+public class NextLookActionTest extends BaseInstrumentationTest {
 
 	private static final int IMAGE_FILE_ID = R.raw.icon;
 	private File testImage;
@@ -50,7 +51,7 @@ public class NextLookActionTest extends InstrumentationTestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-
+		super.setUp();
 		File projectFile = new File(Constants.DEFAULT_ROOT + "/" + projectName);
 
 		if (projectFile.exists()) {
@@ -84,7 +85,7 @@ public class NextLookActionTest extends InstrumentationTestCase {
 
 	public void testNextLook() {
 
-		Sprite sprite = new SingleSprite("cat");
+		Sprite sprite = createSprite("cat");
 
 		LookData lookData1 = new LookData();
 		lookData1.setLookFilename(testImage.getName());
@@ -107,7 +108,7 @@ public class NextLookActionTest extends InstrumentationTestCase {
 	}
 
 	public void testLastLook() {
-		Sprite sprite = new SingleSprite("cat");
+		Sprite sprite = createSprite("cat");
 
 		LookData lookData1 = new LookData();
 		lookData1.setLookFilename(testImage.getName());
@@ -139,7 +140,7 @@ public class NextLookActionTest extends InstrumentationTestCase {
 
 	public void testLookGalleryNull() {
 
-		Sprite sprite = new SingleSprite("cat");
+		Sprite sprite = createSprite("cat");
 		ActionFactory factory = sprite.getActionFactory();
 		Action nextLookAction = factory.createNextLookAction(sprite);
 		nextLookAction.act(1.0f);
@@ -148,7 +149,7 @@ public class NextLookActionTest extends InstrumentationTestCase {
 	}
 
 	public void testLookGalleryWithOneLook() {
-		Sprite sprite = new SingleSprite("cat");
+		Sprite sprite = createSprite("cat");
 
 		LookData lookData1 = new LookData();
 		lookData1.setLookFilename(testImage.getName());
@@ -168,7 +169,7 @@ public class NextLookActionTest extends InstrumentationTestCase {
 
 	public void testNextLookWithNoLookSet() {
 
-		Sprite sprite = new SingleSprite("cat");
+		Sprite sprite = createSprite("cat");
 
 		ActionFactory factory = sprite.getActionFactory();
 		Action nextLookAction = factory.createNextLookAction(sprite);

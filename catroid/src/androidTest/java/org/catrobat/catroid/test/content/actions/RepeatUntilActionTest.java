@@ -42,11 +42,12 @@ import org.catrobat.catroid.formulaeditor.FormulaElement;
 import org.catrobat.catroid.formulaeditor.FormulaElement.ElementType;
 import org.catrobat.catroid.formulaeditor.Operators;
 import org.catrobat.catroid.formulaeditor.UserVariable;
+import org.catrobat.catroid.test.BaseInstrumentationTest;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class RepeatUntilActionTest extends InstrumentationTestCase {
+public class RepeatUntilActionTest extends BaseInstrumentationTest {
 
 	private static final String NOT_NUMERICAL_STRING = "NOT_NUMERICAL_STRING";
 	private Sprite testSprite;
@@ -62,7 +63,8 @@ public class RepeatUntilActionTest extends InstrumentationTestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		testSprite = new SingleSprite("testSprite");
+		super.setUp();
+		testSprite = createSprite("testSprite");
 		project = new Project(null, "testProject");
 		testScript = new StartScript();
 		testSprite.removeAllScripts();
@@ -78,8 +80,6 @@ public class RepeatUntilActionTest extends InstrumentationTestCase {
 		ProjectManager.getInstance().getCurrentScene().getDataContainer().addProjectUserVariable(TEST_USERVARIABLE_2);
 		userVariable2 = ProjectManager.getInstance().getCurrentScene().getDataContainer()
 				.getUserVariable(TEST_USERVARIABLE_2, null);
-
-		super.setUp();
 	}
 
 	public void testRepeatBrick() throws InterruptedException {

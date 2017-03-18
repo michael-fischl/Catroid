@@ -30,8 +30,9 @@ import org.catrobat.catroid.content.ActionFactory;
 import org.catrobat.catroid.content.SingleSprite;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.formulaeditor.Formula;
+import org.catrobat.catroid.test.BaseTest;
 
-public class SetYActionTest extends AndroidTestCase {
+public class SetYActionTest extends BaseTest {
 
 	private static final float Y_POSITION = 73.3f;
 	private Formula yPosition = new Formula(Y_POSITION);
@@ -40,8 +41,8 @@ public class SetYActionTest extends AndroidTestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		sprite = new SingleSprite("testSprite");
 		super.setUp();
+		sprite = createSprite("testSprite");
 	}
 
 	public void testNormalBehavior() {

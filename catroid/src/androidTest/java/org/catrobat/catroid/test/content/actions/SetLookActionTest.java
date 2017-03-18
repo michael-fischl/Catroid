@@ -36,13 +36,14 @@ import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.SingleSprite;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.io.StorageHandler;
+import org.catrobat.catroid.test.BaseInstrumentationTest;
 import org.catrobat.catroid.test.R;
 import org.catrobat.catroid.test.utils.TestUtils;
 import org.catrobat.catroid.utils.UtilFile;
 
 import java.io.File;
 
-public class SetLookActionTest extends InstrumentationTestCase {
+public class SetLookActionTest extends BaseInstrumentationTest {
 
 	private static final int IMAGE_FILE_ID = R.raw.icon;
 	private String projectName = "testProject";
@@ -51,7 +52,7 @@ public class SetLookActionTest extends InstrumentationTestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-
+		super.setUp();
 		File projectFile = new File(Constants.DEFAULT_ROOT + "/" + projectName);
 
 		if (projectFile.exists()) {
@@ -88,7 +89,7 @@ public class SetLookActionTest extends InstrumentationTestCase {
 		ScreenValues.SCREEN_HEIGHT = 200;
 		ScreenValues.SCREEN_WIDTH = 200;
 
-		Sprite sprite = new SingleSprite("new sprite");
+		Sprite sprite = createSprite("new sprite");
 		project.getDefaultScene().addSprite(sprite);
 		LookData lookData = new LookData();
 		lookData.setLookFilename(testImage.getName());

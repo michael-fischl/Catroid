@@ -36,13 +36,14 @@ import org.catrobat.catroid.content.SingleSprite;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.formulaeditor.Formula;
 import org.catrobat.catroid.io.StorageHandler;
+import org.catrobat.catroid.test.BaseInstrumentationTest;
 import org.catrobat.catroid.test.R;
 import org.catrobat.catroid.test.utils.TestUtils;
 import org.catrobat.catroid.utils.UtilFile;
 
 import java.io.File;
 
-public class TurnRightActionTest extends InstrumentationTestCase {
+public class TurnRightActionTest extends BaseInstrumentationTest {
 
 	private static final int IMAGE_FILE_ID = R.raw.icon;
 
@@ -51,10 +52,11 @@ public class TurnRightActionTest extends InstrumentationTestCase {
 	private LookData lookData;
 	private static final String NOT_NUMERICAL_STRING = "NOT_NUMERICAL_STRING";
 	private static final float VALUE = 33;
+	private Sprite sprite;
 
 	@Override
 	public void setUp() throws Exception {
-
+		super.setUp();
 		File projectFile = new File(Constants.DEFAULT_ROOT + "/" + projectName);
 
 		if (projectFile.exists()) {
@@ -67,6 +69,8 @@ public class TurnRightActionTest extends InstrumentationTestCase {
 
 		testImage = TestUtils.saveFileToProject(this.projectName, project.getDefaultScene().getName(), "testImage.png", IMAGE_FILE_ID, getInstrumentation()
 				.getContext(), TestUtils.TYPE_IMAGE_FILE);
+
+		sprite = createSprite("testSprite");
 
 		lookData = new LookData();
 		lookData.setLookFilename(testImage.getName());
@@ -90,7 +94,6 @@ public class TurnRightActionTest extends InstrumentationTestCase {
 	}
 
 	public void testTurnRightTwice() {
-		Sprite sprite = new SingleSprite("test");
 		sprite.look.setLookData(lookData);
 
 		ActionFactory factory = sprite.getActionFactory();
@@ -110,7 +113,6 @@ public class TurnRightActionTest extends InstrumentationTestCase {
 	}
 
 	public void testTurnRightAndScale() {
-		Sprite sprite = new SingleSprite("test");
 		sprite.look.setLookData(lookData);
 
 		ActionFactory factory = sprite.getActionFactory();
@@ -126,7 +128,6 @@ public class TurnRightActionTest extends InstrumentationTestCase {
 	}
 
 	public void testScaleandTurnRight() {
-		Sprite sprite = new SingleSprite("test");
 		sprite.look.setLookData(lookData);
 
 		ActionFactory factory = sprite.getActionFactory();
@@ -142,7 +143,6 @@ public class TurnRightActionTest extends InstrumentationTestCase {
 	}
 
 	public void testTurnRightNegative() {
-		Sprite sprite = new SingleSprite("test");
 		sprite.look.setLookData(lookData);
 
 		ActionFactory factory = sprite.getActionFactory();
@@ -155,7 +155,6 @@ public class TurnRightActionTest extends InstrumentationTestCase {
 	}
 
 	public void testTurnRight() {
-		Sprite sprite = new SingleSprite("test");
 		sprite.look.setLookData(lookData);
 
 		ActionFactory factory = sprite.getActionFactory();
@@ -168,7 +167,6 @@ public class TurnRightActionTest extends InstrumentationTestCase {
 	}
 
 	public void testTurnRightAndTurnLeft() {
-		Sprite sprite = new SingleSprite("test");
 		sprite.look.setLookData(lookData);
 
 		ActionFactory factory = sprite.getActionFactory();
@@ -183,7 +181,6 @@ public class TurnRightActionTest extends InstrumentationTestCase {
 	}
 
 	public void testBrickWithStringFormula() {
-		Sprite sprite = new SingleSprite("test");
 		Action action = sprite.getActionFactory().createTurnRightAction(sprite,
 				new Formula(String.valueOf(VALUE)));
 		action.act(1.0f);
@@ -200,7 +197,6 @@ public class TurnRightActionTest extends InstrumentationTestCase {
 	}
 
 	public void testNullFormula() {
-		Sprite sprite = new SingleSprite("test");
 		Action action = sprite.getActionFactory().createTurnRightAction(sprite, null);
 		action.act(1.0f);
 		assertEquals("Wrong direction!", 0f, sprite.look.getRotation());
@@ -209,7 +205,6 @@ public class TurnRightActionTest extends InstrumentationTestCase {
 	}
 
 	public void testNotANumberFormula() {
-		Sprite sprite = new SingleSprite("test");
 		Action action = sprite.getActionFactory().createTurnRightAction(sprite, new Formula(Double.NaN));
 		action.act(1.0f);
 		assertEquals("Wrong direction!", 0f, sprite.look.getRotation());

@@ -32,11 +32,12 @@ import org.catrobat.catroid.formulaeditor.InternFormulaParser;
 import org.catrobat.catroid.formulaeditor.InternToken;
 import org.catrobat.catroid.formulaeditor.InternTokenType;
 import org.catrobat.catroid.formulaeditor.Operators;
+import org.catrobat.catroid.test.BaseTest;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class ParserTest extends AndroidTestCase {
+public class ParserTest extends BaseTest {
 
 	private static final float LOOK_ALPHA = 50f;
 	private static final float LOOK_Y_POSITION = 23.4f;
@@ -49,8 +50,9 @@ public class ParserTest extends AndroidTestCase {
 	private Sprite testSprite;
 
 	@Override
-	protected void setUp() {
-		testSprite = new SingleSprite("sprite");
+	protected void setUp() throws Exception {
+		super.setUp();
+		testSprite = createSprite("sprite");
 		testSprite.look.setXInUserInterfaceDimensionUnit(LOOK_X_POSITION);
 		testSprite.look.setYInUserInterfaceDimensionUnit(LOOK_Y_POSITION);
 		testSprite.look.setTransparencyInUserInterfaceDimensionUnit(LOOK_ALPHA);

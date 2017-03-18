@@ -25,6 +25,7 @@ package org.catrobat.catroid.test.content.actions;
 import android.test.AndroidTestCase;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.utils.compression.lzma.Base;
 
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.content.ActionFactory;
@@ -32,14 +33,15 @@ import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Scene;
 import org.catrobat.catroid.content.SingleSprite;
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.test.BaseTest;
 
-public class PointToActionTest extends AndroidTestCase {
+public class PointToActionTest extends BaseTest {
 
 	private final float delta = 1e-7f;
 
 	public void testPointTo() {
-		Sprite sprite = new SingleSprite("sprite");
-		Sprite pointedSprite = new SingleSprite("pointedSprite");
+		Sprite sprite = createSprite("sprite");
+		Sprite pointedSprite = createSprite("pointedSprite");
 		Project project = new Project();
 		Scene scene = new Scene();
 		project.addScene(scene);
